@@ -1,14 +1,22 @@
 "use client";
 
-import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+    PropsWithChildren,
+    ReactNode,
+    createContext,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from "react";
 import { useGoogleMaps } from "./GoogleMapsApiProvider";
 import useGeolocation from "@/hooks/useGeolocation";
 import useInitialize from "@/hooks/useInitialize";
 
-interface Props {
+interface Props extends PropsWithChildren {
     fallback?: ReactNode;
 }
-const GoogleMap: React.FC<Props> = ({ fallback }) => {
+const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
     const { maps: mapsAPI } = useGoogleMaps();
     const geolocation = useGeolocation();
 
@@ -28,6 +36,7 @@ const GoogleMap: React.FC<Props> = ({ fallback }) => {
             new mapsAPI!.Map(container!, {
                 ...startingPosition,
                 scrollwheel: true,
+                mapId: "main-map",
                 minZoom: 2,
             })
         ); //TODO change to global reducer
@@ -37,13 +46,15 @@ const GoogleMap: React.FC<Props> = ({ fallback }) => {
         <div
             ref={mapContainerRef}
             style={{
-                width: "100vh",
-                height: "100vw",
+                height: "100vh",
             }}
         >
             {fallback}
+            <MapContext.Provider value={map}>{children}</MapContext.Provider>
         </div>
     );
 };
+
+export const MapContext = createContext<google.maps.Map | null>(null);
 
 export default GoogleMap;
