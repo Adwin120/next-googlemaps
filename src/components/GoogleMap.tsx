@@ -32,11 +32,12 @@ const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
                   zoom: 10,
                   center: { lat: geolocation.coords.latitude, lng: geolocation.coords.longitude },
               };
+
         setMap(
             new mapsAPI!.Map(container!, {
                 ...startingPosition,
                 scrollwheel: true,
-                mapId: "main-map",
+                mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID,
                 minZoom: 2,
             })
         ); //TODO change to global reducer
