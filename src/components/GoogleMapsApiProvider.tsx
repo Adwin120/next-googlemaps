@@ -2,17 +2,10 @@
 
 import usePromise from "@/hooks/usePromise";
 import { Loader } from "@googlemaps/js-api-loader";
-import dynamic from "next/dynamic";
 import {
     PropsWithChildren,
-    ReactNode,
-    Suspense,
     createContext,
-    use,
-    useCallback,
     useContext,
-    useEffect,
-    useState,
 } from "react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API!;

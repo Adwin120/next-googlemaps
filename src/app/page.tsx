@@ -3,19 +3,17 @@ import GoogleMap from "@/components/GoogleMap";
 import GoogleMapsApiProvider from "@/components/GoogleMapsApiProvider";
 import MapMarker from "@/components/MapMarker";
 import useGeolocation from "@/hooks/useGeolocation";
+import useLatLng from "@/hooks/useLatLng";
 
 export default function Home() {
-    const geolocation = useGeolocation();
+    const clientLatLng = useLatLng();
 
     return (
         <GoogleMapsApiProvider>
             <GoogleMap fallback={<div>test</div>}>
-                {geolocation && (
+                {clientLatLng && (
                     <MapMarker
-                        position={{
-                            lat: geolocation.coords.latitude,
-                            lng: geolocation.coords.longitude,
-                        }}
+                        position={clientLatLng}
                         title="your location"
                     />
                 )}
