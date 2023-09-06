@@ -1,3 +1,4 @@
+import { theme } from "@/theme/theme"
 import { defineConfig } from "@pandacss/dev"
 
 export default defineConfig({
@@ -12,11 +13,10 @@ export default defineConfig({
 
     // Useful for theme customization
     theme: {
-      extend: {}
+      extend: theme
     },
 
     // The output directory for your css system
     outdir: "styled-system-out",
-    
     
 })

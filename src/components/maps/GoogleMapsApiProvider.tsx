@@ -2,26 +2,20 @@
 
 import usePromise from "@/hooks/usePromise";
 import { Loader } from "@googlemaps/js-api-loader";
-import {
-    PropsWithChildren,
-    createContext,
-    useContext,
-} from "react";
+import { PropsWithChildren, createContext, useContext } from "react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API!;
 
-// const _GoogleMapsApiProvider: React.FC<PropsWithChildren> = ({ children }) => (
-//     <Suspense fallback={<div>suspense fallback</div>}>
-//         <GoogleMapsApiProvider1>{children}</GoogleMapsApiProvider1>
-//     </Suspense>
-// );
-
 const GoogleMapsApiProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [mapApi, status] = usePromise(loadMapsApi);
-    const contextValue = status === "success" ? {
-        maps: mapApi[0],
-        marker: mapApi[1]
-    } : defaultContext
+    const contextValue =
+        status === "success"
+            ? {
+                  maps: mapApi[0],
+                  marker: mapApi[1],
+              }
+            : defaultContext;
+
     return (
         <GoogleMapsAPIContext.Provider value={contextValue}>
             {children}
@@ -41,12 +35,12 @@ const loadMapsApi = () => {
 
 interface GoogleMapsApiContext {
     maps: google.maps.MapsLibrary | null;
-    marker: google.maps.MarkerLibrary | null
+    marker: google.maps.MarkerLibrary | null;
 }
 const defaultContext = {
     maps: null,
-    marker: null
-}
+    marker: null,
+};
 const GoogleMapsAPIContext = createContext<GoogleMapsApiContext>(defaultContext);
 export const useGoogleMaps = () => useContext(GoogleMapsAPIContext);
 
