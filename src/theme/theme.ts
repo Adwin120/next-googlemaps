@@ -4,6 +4,6 @@ export const theme: Theme = {
     tokens: {
         sizes: {
             headerHeight: {value: "60px"}
-        }
+        },
     }
 };

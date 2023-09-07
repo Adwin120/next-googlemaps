@@ -1,21 +1,14 @@
-"use client";
 import TopBar from "@/components/TopBar";
-import GoogleMap from "@/components/maps/GoogleMap";
 import GoogleMapsApiProvider from "@/components/maps/GoogleMapsApiProvider";
-import MapMarker from "@/components/maps/MapMarker";
-import useGeolocation from "@/hooks/useGeolocation";
-import useLatLng from "@/hooks/useLatLng";
+import MainMap from "@/components/maps/MainMap";
 
 export default function Home() {
-    const clientLatLng = useLatLng();
+    const clientLatLng = undefined;
 
     return (
         <GoogleMapsApiProvider>
             <TopBar/>
-            {/* TODO: change fallback */}
-            <GoogleMap fallback={<div>test</div>}>
-                {clientLatLng && <MapMarker position={clientLatLng} title="your location" />}
-            </GoogleMap>
+            <MainMap/>
         </GoogleMapsApiProvider>
     );
 }

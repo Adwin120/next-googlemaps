@@ -1,5 +1,8 @@
 import { css, cx } from "@/../styled-system-out/css";
 import { hstack } from "../../styled-system-out/patterns";
+import Logo from "./Logo";
+import SearchBar from "./SearchBar";
+import UserInfo from "./UserInfo";
 
 interface Props {}
 const TopBar: React.FC<Props> = () => {
@@ -10,11 +13,13 @@ const TopBar: React.FC<Props> = () => {
                 shadow: "lg",
                 zIndex: 2,
                 pos: "sticky",
-                bg: "slate.800",
+                bg: "emerald.950",
                 px: "3"
-            }), hstack())}
+            }), hstack({justify: "space-between"}))}
         >
-            
+            <Logo/>
+            <SearchBar/>
+            <UserInfo/>
         </header>
     );
 };

@@ -45,6 +45,7 @@ const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
                 draggingCursor: "move",
                 gestureHandling: "greedy",
                 mapId: MAP_ID,
+                minZoom: 2.8,
                 restriction: {
                     strictBounds: true,
                     latLngBounds: {
@@ -57,7 +58,7 @@ const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
             })
         ); //TODO: change to global reducer
     }, [mapsAPI, container]);
-    console.log(map);
+    
     return (
         <div
             ref={mapContainerRef}
