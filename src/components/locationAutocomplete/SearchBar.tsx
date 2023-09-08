@@ -2,10 +2,10 @@
 import usePromise from "@/hooks/usePromise";
 import { search } from "@/utils/mock";
 import { useCallback, useRef, useState } from "react";
-import { css, cx } from "../../../styled-system-out/css";
+import { css } from "../../../styled-system-out/css";
 import { useCombobox } from "downshift";
 import AutocompleteMenuContent from "./AutocompleteMenuContent";
-import { hstack, square, visuallyHidden } from "../../../styled-system-out/patterns";
+import { visuallyHidden } from "../../../styled-system-out/patterns";
 import { MagnifyingGlassIcon, ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
     chevronIconsStyle,
@@ -49,7 +49,7 @@ const SearchBar: React.FC<Props> = () => {
                     search map
                 </label>
                 <MagnifyingGlassIcon className={inputIconsStyle} onClick={focusInput} />
-                <input {...combobox.getInputProps({ref: inputRef})} className={inputStyle} />
+                <input {...combobox.getInputProps({ ref: inputRef })} className={inputStyle} />
                 <button {...combobox.getToggleButtonProps()}>
                     {combobox.isOpen ? (
                         <ChevronUpIcon className={chevronIconsStyle} />

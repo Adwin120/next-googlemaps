@@ -1,11 +1,8 @@
-import { css, cx } from "@/../styled-system-out/css";
 import { hstack } from "../../styled-system-out/patterns";
-import Logo from "./Logo";
-import SearchBar from "./locationAutocomplete/SearchBar";
-import UserInfo from "./UserInfo";
+import { PropsWithChildren } from "react";
 
-interface Props {}
-const TopBar: React.FC<Props> = () => {
+interface Props extends PropsWithChildren {}
+const TopBar: React.FC<Props> = ({children}) => {
     return (
         <header
             className={hstack({
@@ -18,9 +15,7 @@ const TopBar: React.FC<Props> = () => {
                 px: "3",
             })}
         >
-            <Logo />
-            <SearchBar />
-            <UserInfo />
+            {children}
         </header>
     );
 };

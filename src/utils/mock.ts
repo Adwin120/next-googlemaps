@@ -8,7 +8,7 @@ export const getUser = async () => {
 };
 
 export const search = async (query: string) => {
-    await wait(500);
+    await wait(500000);
     return [0, 1, 2, 3].map((n) => query + n);
 };
 

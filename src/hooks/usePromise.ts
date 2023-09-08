@@ -8,35 +8,36 @@ import { useEffect, useState } from "react";
 
 export type PromiseStatus = "loading" | "success" | "failure";
 
-type HookReturnTuple<S extends PromiseStatus, T, E> = [T, S, E];
+type HookReturnTuple<S extends PromiseStatus, T, E> = readonly [T, S, E];
 
 type ReturnValue<T, E> =
     | HookReturnTuple<"success", T, null>
     | HookReturnTuple<"failure", null, E>
     | HookReturnTuple<"loading", null, null>;
 
-//TODO: use one useState, change input from callback to Promise itself, change useCallback to useMemo in every use case
+const initialState = [null, "loading", null] as const;
+
 const usePromise = <T, E>(callback: () => Promise<T>): ReturnValue<T, E> => {
-    const [status, setStatus] = useState<PromiseStatus>("loading");
-    const [data, setData] = useState<T | null>(null);
-    const [error, setError] = useState<E | null>(null);
+    const [state, setState] = useState<ReturnValue<T, E>>(initialState);
     useEffect(() => {
         let stale = false;
-        setStatus("loading")
+        setState(initialState);
+        
         callback()
             .then((data) => {
                 if (stale) return;
-                setStatus("success");
-                setData(data);
+                setState([data, "success", null]);
             })
             .catch((error) => {
                 if (stale) return;
-                setStatus("failure");
-                setError(error);
+                setState([null, "failure", error]);
             });
-        return () => {stale = true};
+        return () => {
+            stale = true;
+        };
     }, [callback]);
-    return [data, status, error] as ReturnValue<T, E>;
+
+    return state;
 };
 
 export default usePromise;
