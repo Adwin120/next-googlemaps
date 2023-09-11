@@ -42,15 +42,18 @@ const SearchBar: React.FC<Props> = () => {
         itemToString: queryToString,
         isOpen: suggestionBoxOpen,
         onIsOpenChange(changes) {
-            if (changes.inputValue !== "") setSuggestionBoxOpen(changes.isOpen ?? false);
+            if (changes.inputValue !== "" || !changes.isOpen)
+                setSuggestionBoxOpen(changes.isOpen ?? false);
         },
     });
 
     const inputRef = useRef<HTMLInputElement>(null);
     const focusInput = () => {
-        combobox.openMenu();
+        setSuggestionBoxOpen(true);
         inputRef.current?.focus();
     };
+
+    const toggleButtonProps = combobox.getToggleButtonProps();
 
     return (
         <search className={css({ pos: "relative" })}>
@@ -60,7 +63,13 @@ const SearchBar: React.FC<Props> = () => {
                 </label>
                 <MagnifyingGlassIcon className={inputIconsStyle} onClick={focusInput} />
                 <input {...combobox.getInputProps({ ref: inputRef })} className={inputStyle} />
-                <button {...combobox.getToggleButtonProps()}>
+                <button
+                    {...toggleButtonProps}
+                    onClick={(e) => {
+                        focusInput();
+                        toggleButtonProps.onClick && toggleButtonProps.onClick(e);
+                    }}
+                >
                     {suggestionBoxOpen ? (
                         <ChevronUpIcon className={chevronIconsStyle} />
                     ) : (

@@ -45,7 +45,7 @@ const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
                 },
             },
         });
-    }, [mapsAPI, container]);
+    }, [mapsAPI, container, initialGeolocationStatus, initialGeolocation]);
 
     return (
         <div
