@@ -1,5 +1,6 @@
 import { hstack } from "../../styled-system-out/patterns";
 import { PropsWithChildren } from "react";
+import { token } from "../../styled-system-out/tokens";
 
 interface Props extends PropsWithChildren {}
 const TopBar: React.FC<Props> = ({children}) => {
@@ -8,7 +9,7 @@ const TopBar: React.FC<Props> = ({children}) => {
             className={hstack({
                 justify: "space-between",
                 height: "headerHeight",
-                shadow: "lg",
+                shadow: "13",
                 zIndex: 2,
                 pos: "sticky",
                 bg: "emerald.950",

@@ -1,7 +1,7 @@
 import pudzian from "../../public/pudzian.png";
 
 export const getUser = async () => {
-    await wait(1000)
+    // await wait(1000)
     return {
         username: "Pudzian",
         avatarUrl: pudzian,

@@ -19,7 +19,7 @@ const SideDrawer: React.FC<Props> = ({ children }) => {
                 maxW: "96",
                 zIndex: 1,
                 bg: "gray.800",
-                shadow: "xs",
+                shadow: "10",
                 transform: layout.isSideBarOpen ? "" : "translateX(100%)",
                 transition: "transform 0.3s ease-out",
             })}

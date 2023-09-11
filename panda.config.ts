@@ -1,5 +1,6 @@
 import { theme } from "@/theme/theme";
 import { defineConfig } from "@pandacss/dev";
+import { avatar } from "@/theme/patterns/avatar";
 
 export default defineConfig({
     // Whether to use css reset
@@ -14,6 +15,11 @@ export default defineConfig({
     // Useful for theme customization
     theme: {
         extend: theme,
+    },
+    patterns: {
+        extend: {
+            avatar: avatar
+        }
     },
     optimize: process.env.NODE_ENV === "production",
     minify: process.env.NODE_ENV === "production",
