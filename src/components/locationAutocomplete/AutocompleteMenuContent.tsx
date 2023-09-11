@@ -9,10 +9,17 @@ interface Props<T> {
     options: T[];
     optionToString: (option: T) => string;
     status: PromiseStatus;
+    optionToID: (option: T) => React.Key;
 }
-function AutocompleteMenuContent<T>({ combobox, options, optionToString, status }: Props<T>) {
+function AutocompleteMenuContent<T>({
+    combobox,
+    options,
+    optionToString,
+    status,
+    optionToID,
+}: Props<T>) {
     if (!combobox.isOpen) return null;
-    if (status !== "success")
+    if (status !== "success" && options.length === 0)
         return (
             <li>
                 <LoadingSpinner css={{ size: 8 }} spinnerWidth="16" /> loading
@@ -24,7 +31,7 @@ function AutocompleteMenuContent<T>({ combobox, options, optionToString, status 
         <MenuItem
             combobox={combobox}
             index={i}
-            key={optionToString(option)}
+            key={optionToID(option)}
             option={option}
             optionToString={optionToString}
         />

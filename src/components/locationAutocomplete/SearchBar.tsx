@@ -14,26 +14,36 @@ import {
     inputStyle,
     popupMenuStyle,
 } from "./autocomplete.css";
+import usePlacesAutocomplete from "@/hooks/usePlacesAutocomplete";
+
+type Query = google.maps.places.QueryAutocompletePrediction;
+
+const queryToString = (query: Query | null): string => query?.description ?? "";
+const queryToId = (query: Query) => query.place_id ?? query.description;
 
 interface Props {}
 const SearchBar: React.FC<Props> = () => {
-    const [query, setQuery] = useState<string | null>(null); //TODO: change to position-representing object
+    const [query, setQuery] = useState<Query | null>(null);
     const [input, setInput] = useState<string>("");
+    const [suggestionBoxOpen, setSuggestionBoxOpen] = useState<boolean>(false);
 
-    const searchPromise = useCallback(() => {
-        return search(input);
-    }, [input]);
-    const [options, status] = usePromise(searchPromise);
+    //TODO: debounce this thing
+    const [options, status] = usePlacesAutocomplete(input);
 
     const combobox = useCombobox({
         items: options ?? [],
         onInputValueChange(changes) {
             setInput(changes.inputValue ?? "");
+            if (changes.inputValue === "") setSuggestionBoxOpen(false);
         },
         onStateChange(changes) {
             setQuery(changes.selectedItem ?? null);
         },
-        itemToString: (x) => x ?? "",
+        itemToString: queryToString,
+        isOpen: suggestionBoxOpen,
+        onIsOpenChange(changes) {
+            if (changes.inputValue !== "") setSuggestionBoxOpen(changes.isOpen ?? false);
+        },
     });
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -51,7 +61,7 @@ const SearchBar: React.FC<Props> = () => {
                 <MagnifyingGlassIcon className={inputIconsStyle} onClick={focusInput} />
                 <input {...combobox.getInputProps({ ref: inputRef })} className={inputStyle} />
                 <button {...combobox.getToggleButtonProps()}>
-                    {combobox.isOpen ? (
+                    {suggestionBoxOpen ? (
                         <ChevronUpIcon className={chevronIconsStyle} />
                     ) : (
                         <ChevronDownIcon className={chevronIconsStyle} />
@@ -61,7 +71,8 @@ const SearchBar: React.FC<Props> = () => {
             <ul {...combobox.getMenuProps()} className={popupMenuStyle}>
                 <AutocompleteMenuContent
                     combobox={combobox}
-                    optionToString={(x) => x ?? ""}
+                    optionToString={queryToString}
+                    optionToID={queryToId}
                     options={options ?? []}
                     status={status}
                 />

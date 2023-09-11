@@ -6,6 +6,9 @@ import GoogleMapsApiProvider from "@/components/maps/GoogleMapsApiProvider";
 import MainMap from "@/components/maps/MainMap";
 import SideDrawerOpener from "@/components/SideDrawerOpener";
 import SideDrawer from "@/components/SideDrawer";
+import { Suspense } from "react";
+import { LoadingSpinner } from "@/components/utils/LoadingSpinner";
+import TopBarAndDrawerLayoutContext from "@/components/layoutcontexts/TopBarAndDrawerLayoutContext";
 
 export default function Home() {
     return (
@@ -14,10 +17,12 @@ export default function Home() {
                 <Logo />
                 <SearchBar />
                 <SideDrawerOpener>
-                    <UserInfo />
+                    <Suspense fallback={<LoadingSpinner />}>
+                        <UserInfo />
+                    </Suspense>
                 </SideDrawerOpener>
             </TopBar>
-            <SideDrawer/>
+            <SideDrawer></SideDrawer>
             <MainMap />
         </GoogleMapsApiProvider>
     );

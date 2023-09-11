@@ -1,8 +1,11 @@
 "use client";
 
-import { PropsWithChildren, ReactNode, createContext, useMemo, useRef } from "react";
+import { PropsWithChildren, ReactNode, createContext, use, useMemo, useRef } from "react";
 import { useGoogleMaps } from "./GoogleMapsApiProvider";
 import { css } from "../../../styled-system-out/css";
+import usePermission, { getPermission } from "@/hooks/usePermission";
+import { getLatLng } from "@/hooks/useLatLng";
+import usePromise from "@/hooks/usePromise";
 
 const MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID;
 
@@ -12,16 +15,16 @@ interface Props extends PropsWithChildren {
 const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
     const { maps: mapsAPI } = useGoogleMaps();
 
+    const [initialGeolocation, initialGeolocationStatus] = usePromise(getLatLng)
+
     const mapContainerRef = useRef<HTMLDivElement>(null);
     const container = mapContainerRef.current;
 
     const map = useMemo(() => {
-        if (!mapsAPI || !container) return null;
-        //TODO: If user had given permission for geolocation then wait for it using use() + Suspense and center on it
-        // const startingPosition = !clientLatLng
-        //     ? { zoom: 3, center: { lat: 0, lng: 0 } }
-        //     : { zoom: 10, center: clientLatLng };
-        const startingPosition = { zoom: 3, center: { lat: 0, lng: 0 } };
+        if (!mapsAPI || !container || initialGeolocationStatus === "loading") return null;
+        const startingPosition = !initialGeolocation
+            ? { zoom: 3, center: { lat: 0, lng: 0 } }
+            : { zoom: 10, center: initialGeolocation };
 
         return new mapsAPI!.Map(container, {
             ...startingPosition,

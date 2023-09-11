@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import usePromise from "./usePromise";
+import usePermission, { getPermission } from "./usePermission";
+import { promiseGuard } from "@/utils/promiseUtils";
 
 const geolocationOptions = {
     enableHighAccuracy: false,
@@ -6,9 +9,11 @@ const geolocationOptions = {
 };
 
 const useGeolocation = () => {
-    //TODO: manage permissions
     const [location, setLocation] = useState<GeolocationPosition | null>(null);
+    const permission = usePermission("geolocation");
+
     useEffect(() => {
+        if (permission !== "granted") return;
         const id = navigator.geolocation.watchPosition(
             setLocation,
             console.error,
@@ -17,15 +22,18 @@ const useGeolocation = () => {
         return () => {
             navigator.geolocation.clearWatch(id);
         };
-    }, []);
+    }, [permission]);
 
     return location;
 };
 
-//TODO: manage permissions
 export const getGeolocation = () =>
-    new Promise((resolve, reject) =>
-        navigator.geolocation.getCurrentPosition(resolve, reject, geolocationOptions)
-    );
+    getPermission("geolocation")
+        .then(promiseGuard((perm) => perm === "granted"))
+        .then(() => {
+            return new Promise<GeolocationPosition>((resolve, reject) =>
+                navigator.geolocation.getCurrentPosition(resolve, reject, geolocationOptions)
+            );
+        });
 
 export default useGeolocation;

@@ -1,9 +1,9 @@
 import { css } from "../../../styled-system-out/css";
 import { SquareStyles, center, square } from "../../../styled-system-out/patterns";
 
-export const LoadingSpinner: React.FC<{ css: SquareStyles; spinnerWidth: string }> = ({
+export const LoadingSpinner: React.FC<{ css?: SquareStyles; spinnerWidth?: string }> = ({
     css: cssProp,
-    spinnerWidth,
+    spinnerWidth = 10,
 }) => {
     return (
         <span
@@ -20,8 +20,10 @@ export const LoadingSpinner: React.FC<{ css: SquareStyles; spinnerWidth: string 
                     cx="60"
                     cy="60"
                     r="50"
-                    stroke="gray"
-                    fill="none"
+                    className={css({
+                        fill: "none",
+                        stroke: "gray.300",
+                    })}
                     strokeWidth={spinnerWidth}
                 />
                 <circle

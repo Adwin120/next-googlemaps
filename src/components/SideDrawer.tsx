@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayout } from "@/app/layout";
+import { useLayout } from "./layoutcontexts/TopBarAndDrawerLayoutContext";
 import { PropsWithChildren } from "react";
 import { css } from "../../styled-system-out/css";
 import { token } from "../../styled-system-out/tokens";
@@ -23,6 +23,7 @@ const SideDrawer: React.FC<Props> = ({ children }) => {
                 transform: layout.isSideBarOpen ? "" : "translateX(100%)",
                 transition: "transform 0.3s ease-out",
             })}
+            aria-hidden={!layout.isSideBarOpen}
         >
             {children}
         </div>

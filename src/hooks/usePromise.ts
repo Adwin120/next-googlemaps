@@ -8,14 +8,15 @@ import { useEffect, useState } from "react";
 
 export type PromiseStatus = "loading" | "success" | "failure";
 
-type HookReturnTuple<S extends PromiseStatus, T, E> = readonly [T, S, E];
+export type PromiseHookReturnTuple<S extends PromiseStatus, T, E> = readonly [T, S, E];
 
 type ReturnValue<T, E> =
-    | HookReturnTuple<"success", T, null>
-    | HookReturnTuple<"failure", null, E>
-    | HookReturnTuple<"loading", null, null>;
+    | PromiseHookReturnTuple<"success", T, null>
+    | PromiseHookReturnTuple<"failure", null, E>
+    | PromiseHookReturnTuple<"loading", null, null>;
 
 const initialState = [null, "loading", null] as const;
+
 
 const usePromise = <T, E>(callback: () => Promise<T>): ReturnValue<T, E> => {
     const [state, setState] = useState<ReturnValue<T, E>>(initialState);
