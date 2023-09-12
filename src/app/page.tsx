@@ -8,7 +8,6 @@ import SideDrawerOpener from "@/components/SideDrawerOpener";
 import SideDrawer from "@/components/SideDrawer";
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/utils/LoadingSpinner";
-import TopBarAndDrawerLayoutContext from "@/components/layoutcontexts/TopBarAndDrawerLayoutContext";
 
 export default function Home() {
     return (

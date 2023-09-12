@@ -3,6 +3,7 @@ import { UseComboboxReturnValue } from "downshift";
 import { PromiseStatus } from "@/hooks/usePromise";
 import MenuItem from "./MenuItem";
 import { LoadingSpinner } from "../utils/LoadingSpinner";
+import { menuItemStyle } from "./autocomplete.css";
 
 interface Props<T> {
     combobox: UseComboboxReturnValue<T>;
@@ -25,7 +26,7 @@ function AutocompleteMenuContent<T>({
                 <LoadingSpinner css={{ size: 8 }} spinnerWidth="16" /> loading
             </li>
         );
-    if (options.length === 0) return <li>no options</li>;
+    if (options.length === 0) return <li className={menuItemStyle()}>no options</li>;
 
     return options.map((option, i) => (
         <MenuItem
