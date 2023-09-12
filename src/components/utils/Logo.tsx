@@ -1,7 +1,7 @@
 import Image from "next/image";
-import logo from "../../public/logo.svg";
+import logo from "../../../public/logo.svg";
 import PropsWithPandaStyling from "@/types/PropsWithPandaStyling";
-import { css } from "../../styled-system-out/css";
+import { css } from "../../../styled-system-out/css";
 
 interface Props extends PropsWithPandaStyling {}
 const Logo: React.FC<Props> = ({ css: cssProp }) => {

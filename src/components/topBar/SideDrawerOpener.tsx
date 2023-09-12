@@ -1,9 +1,9 @@
 "use client";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
-import { hstack, square } from "../../styled-system-out/patterns";
+import { hstack, square } from "../../../styled-system-out/patterns";
 import UserInfo from "./UserInfo";
 import { PropsWithChildren } from "react";
-import { useLayout } from "./layoutcontexts/TopBarAndDrawerLayoutContext";
+import { useLayout } from "../layoutContexts/TopBarAndDrawerLayoutContext";
 
 const chevronStyle = square({ size: 8, mt: 1, color: "white", cursor: "pointer" });
 

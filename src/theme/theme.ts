@@ -13,7 +13,7 @@ export const theme: Theme = {
             underHeaderHeight: { value: `calc(100vh - 60px)` },
         },
         shadows: {
-            well: { value: "0 2px 0 hsla(224, 84%, 74%, 0.2), inset 0 2px 4px 0 hsla(0,0%,0%,0.3)" },
+            well: { value: "0 2px 0 hsla(224, 84%, 74%, 0.2), inset 0 2px 4px 0 hsla(0,0%,0%,0.4)" },
             bump: { value: "inset 0 1px 0 hsla(224, 84%, 74%, 0.2), 0 1px 3px hsla(0, 0%, 0%, 0.2)"},
             gold: { value: "inset 5px 5px 2px gold" }, // strong shadow for debugging
             0: { value: "none" },
