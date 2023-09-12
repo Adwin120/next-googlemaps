@@ -34,7 +34,7 @@ export const menuItemStyle = cva({
     variants: {
         highlighted: {
             true: {
-                bg: "blue.950",
+                bg: "secondary",
             },
         },
         selected: {

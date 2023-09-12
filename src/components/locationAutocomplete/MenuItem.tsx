@@ -1,5 +1,4 @@
 import { UseComboboxReturnValue } from "downshift";
-import { css } from "../../../styled-system-out/css";
 import { menuItemStyle } from "./autocomplete.css";
 
 interface Props<T = unknown> {

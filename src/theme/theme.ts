@@ -1,15 +1,21 @@
 import type { Theme } from "@pandacss/types";
 
 export const theme: Theme = {
+    semanticTokens: {
+        colors: {
+            primary: {value: "{colors.emerald.950}"},
+            secondary: {value: "{colors.blue.950}"}
+        },
+    },
     tokens: {
         sizes: {
             headerHeight: { value: "60px" },
             underHeaderHeight: { value: `calc(100vh - 60px)` },
         },
         shadows: {
-            well: { value: "0 2px 0 hsla(0,0%,100%,0.05), inset 0 2px 4px 0 hsla(0,0%,0%,0.3)" },
-            bump: { value: "inset 0 1px 0 hsl(224, 84%, 74%), 0 1px 3px hsla(0, 0%, 0%, 0.2)"},
-            gold: { value: "inset 5px 5px 2px gold" },
+            well: { value: "0 2px 0 hsla(224, 84%, 74%, 0.2), inset 0 2px 4px 0 hsla(0,0%,0%,0.3)" },
+            bump: { value: "inset 0 1px 0 hsla(224, 84%, 74%, 0.2), 0 1px 3px hsla(0, 0%, 0%, 0.2)"},
+            gold: { value: "inset 5px 5px 2px gold" }, // strong shadow for debugging
             0: { value: "none" },
             1: {
                 value: "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",

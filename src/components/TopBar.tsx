@@ -12,7 +12,7 @@ const TopBar: React.FC<Props> = ({children}) => {
                 shadow: "13",
                 zIndex: 2,
                 pos: "sticky",
-                bg: "emerald.950",
+                bg: "primary",
                 px: "3",
             })}
         >
