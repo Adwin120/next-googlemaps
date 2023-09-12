@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
+import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 import { hstack, square } from "../../../styled-system-out/patterns";
 import UserInfo from "./UserInfo";
 import { PropsWithChildren } from "react";
@@ -20,9 +20,9 @@ const SideDrawerOpener: React.FC<Props> = ({ children }) => {
         >
             {children}
             {layout.isSideBarOpen ? (
-                <ChevronUpIcon className={chevronStyle} />
+                <HiChevronUp className={chevronStyle} />
             ) : (
-                <ChevronDownIcon className={chevronStyle} />
+                <HiChevronDown className={chevronStyle} />
             )}
         </button>
     );

@@ -3,7 +3,7 @@ import { getUser } from "@/utils/mock";
 import { css } from "../../../styled-system-out/css";
 import { avatar, circle, hstack, square } from "../../../styled-system-out/patterns";
 import Image from "next/image";
-import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+import { HiUserCircle } from "react-icons/hi2";
 import { DefaultSession, getServerSession } from "next-auth";
 import { token } from "../../../styled-system-out/tokens";
 
@@ -23,7 +23,7 @@ const UserInfo: React.FC<Props> = async ({ css: cssProp }) => {
             />
         </div>
     ) : (
-        <UserCircleIcon className={square({ size: "10", color: "gray.400" })} />
+        <HiUserCircle className={square({ size: "10", color: "gray.400" })} />
     );
 
     return (

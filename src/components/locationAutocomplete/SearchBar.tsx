@@ -6,7 +6,7 @@ import { css } from "../../../styled-system-out/css";
 import { useCombobox } from "downshift";
 import AutocompleteMenuContent from "./AutocompleteMenuContent";
 import { visuallyHidden } from "../../../styled-system-out/patterns";
-import { MagnifyingGlassIcon, ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
+import { HiMiniMagnifyingGlass, HiMiniChevronUp, HiMiniChevronDown } from "react-icons/hi2";
 import {
     chevronIconsStyle,
     inputContainerStyle,
@@ -61,7 +61,7 @@ const SearchBar: React.FC<Props> = () => {
                 <label {...combobox.getLabelProps()} className={visuallyHidden()}>
                     search map
                 </label>
-                <MagnifyingGlassIcon className={inputIconsStyle} onClick={focusInput} />
+                <HiMiniMagnifyingGlass className={inputIconsStyle} onClick={focusInput} />
                 <input {...combobox.getInputProps({ ref: inputRef })} className={inputStyle} />
                 <button
                     {...toggleButtonProps}
@@ -71,9 +71,9 @@ const SearchBar: React.FC<Props> = () => {
                     }}
                 >
                     {suggestionBoxOpen ? (
-                        <ChevronUpIcon className={chevronIconsStyle} />
+                        <HiMiniChevronUp className={chevronIconsStyle} />
                     ) : (
-                        <ChevronDownIcon className={chevronIconsStyle} />
+                        <HiMiniChevronDown className={chevronIconsStyle} />
                     )}
                 </button>
             </div>

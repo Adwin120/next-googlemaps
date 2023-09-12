@@ -1,4 +1,4 @@
-import { MapPinIcon } from "@heroicons/react/20/solid";
+import { FaLocationCrosshairs } from "react-icons/fa6";
 import { css } from "../../../styled-system-out/css";
 import PropsWithPandaStyling from "@/types/PropsWithPandaStyling";
 import { square } from "../../../styled-system-out/patterns";
@@ -21,7 +21,7 @@ const GetLocationButton: React.FC<Props> = ({ css: cssProp }) => {
                 cssProp
             )}
         >
-            <MapPinIcon className={square({ size: 8, color: "white" })} />
+            <FaLocationCrosshairs className={square({ size: 8, color: "white" })} />
         </button>
     );
 };

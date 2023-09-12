@@ -7,11 +7,12 @@ import MainMap from "@/components/maps/MainMap";
 import SideDrawerOpener from "@/components/topBar/SideDrawerOpener";
 import SideDrawer from "@/components/sideDrawer/SideDrawer";
 import { Suspense } from "react";
-import { LoadingSpinner } from "@/components/utils/LoadingSpinner";
+import { BlockLoadingSpinner, LoadingSpinner } from "@/components/utils/LoadingSpinner";
 import EnsureLoggedIn from "@/components/sideDrawer/EnsureLoggedIn";
 import NotLoggedInfo from "@/components/sideDrawer/NotLoggedInfo";
 import UserData from "@/components/sideDrawer/UserData";
 import LogOutButton from "@/components/sideDrawer/LogOutButton";
+import { vstack } from "../../styled-system-out/patterns";
 
 export default function Home() {
     return (
@@ -27,12 +28,16 @@ export default function Home() {
             </TopBar>
 
             <SideDrawer>
-                <EnsureLoggedIn fallback={<NotLoggedInfo/>}>
-                    <UserData/>
-                    <LogOutButton/>
-                </EnsureLoggedIn>
+                <Suspense fallback={<BlockLoadingSpinner />}>
+                    <EnsureLoggedIn fallback={<NotLoggedInfo />}>
+                        <div className={vstack({ h: "full" })}>
+                            <UserData css={{ flexGrow: 1 }} />
+                            <LogOutButton />
+                        </div>
+                    </EnsureLoggedIn>
+                </Suspense>
             </SideDrawer>
-            
+
             <MainMap />
         </GoogleMapsApiProvider>
     );
