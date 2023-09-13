@@ -1,6 +1,6 @@
 import Image from "next/image";
 import logo from "../../../public/logo.svg";
-import PropsWithPandaStyling from "@/types/PropsWithPandaStyling";
+import type PropsWithPandaStyling from "@/types/PropsWithPandaStyling";
 import { css } from "../../../styled-system-out/css";
 
 interface Props extends PropsWithPandaStyling {}

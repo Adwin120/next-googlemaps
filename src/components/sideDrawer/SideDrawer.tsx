@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayout } from "../layoutContexts/TopBarAndDrawerLayoutContext";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { css } from "../../../styled-system-out/css";
 import { token } from "../../../styled-system-out/tokens";
 
@@ -16,6 +16,8 @@ const SideDrawer: React.FC<Props> = ({ children }) => {
                 top: token("sizes.headerHeight"),
                 h: "underHeaderHeight",
                 w: "90%",
+                px: "2",
+                py: "4",
                 maxW: "96",
                 zIndex: 1,
                 bg: "gray.800",

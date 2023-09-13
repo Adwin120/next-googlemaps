@@ -5,7 +5,7 @@ import LogInButton from "./LogInButton";
 interface Props {}
 const NotLoggedInfo: React.FC<Props> = () => {
     return (
-        <div className={vstack({gap: "1", color: "white"})}>
+        <div className={vstack({gap: "8", h: "full", justify: "center", color: "white"})}>
             <FaUserXmark className={square({ size: "20" })} />
             <p>To create marker stories you need to log in</p>
             <LogInButton/> 

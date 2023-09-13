@@ -1,5 +1,5 @@
 import { hstack } from "../../../styled-system-out/patterns";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { token } from "../../../styled-system-out/tokens";
 
 interface Props extends PropsWithChildren {}
