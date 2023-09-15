@@ -16,7 +16,7 @@ const LogOutButton: React.FC<Props> = () => {
                 fontSize: "2xl",
                 fontWeight: "bold",
                 color: "red.500",
-                bg: "secondary",
+                bg: "gray.900",
                 shadow: "bump",
                 cursor: "pointer",
                 rounded: "lg"

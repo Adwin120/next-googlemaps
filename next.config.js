@@ -8,6 +8,14 @@ const nextConfig = {
             },
         ],
     },
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
+        config.module.rules.push({
+            test: /\.sql/i,
+            use: 'raw-loader'
+        })
+        config.resolve.extensions.push('.sql')
+        return config;
+    },
 };
 
 module.exports = nextConfig;

@@ -1,0 +1,1 @@
+SELECT * FROM marker WHERE marker.user_id = $1
