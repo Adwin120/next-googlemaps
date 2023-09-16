@@ -8,12 +8,14 @@ import SideDrawerOpener from "@/components/topBar/SideDrawerOpener";
 import SideDrawer from "@/components/sideDrawer/SideDrawer";
 import { Suspense } from "react";
 import { BlockLoadingSpinner, LoadingSpinner } from "@/components/utils/LoadingSpinner";
-import EnsureLoggedIn from "@/components/sideDrawer/EnsureLoggedIn";
+import EnsureLoggedIn from "@/components/utils/EnsureLoggedIn";
 import NotLoggedInfo from "@/components/sideDrawer/NotLoggedInfo";
 import UserData from "@/components/sideDrawer/UserData";
-import LogOutButton from "@/components/sideDrawer/LogOutButton";
 import { divider, visuallyHidden, vstack } from "../../styled-system-out/patterns";
 import { css } from "../../styled-system-out/css";
+import LogOutButton from "@/components/utils/LogOutButton";
+import ModalDialog from "@/components/ModalDialog";
+import AddMarkerForm from "@/components/AddMarkerForm";
 
 export default function Home() {
     return (
@@ -47,6 +49,10 @@ export default function Home() {
             </SideDrawer>
 
             <MainMap />
+
+            <ModalDialog open>
+                <AddMarkerForm/>
+            </ModalDialog>
         </GoogleMapsApiProvider>
     );
 }

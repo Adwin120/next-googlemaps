@@ -6,6 +6,9 @@ const nextConfig = {
             {
                 hostname: "avatars.githubusercontent.com",
             },
+            {
+                hostname: "lh3.googleusercontent.com"
+            }
         ],
     },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
