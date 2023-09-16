@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/utils/ClientSessionProvider";
+import getDbSession from "@/auth/getDbSession";
 
 const inter = Inter({ subsets: ["latin"], preload: false });
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const session = await getServerSession();
+    const session = await getDbSession();
     return (
         <html lang="en">
             <body className={inter.className}>

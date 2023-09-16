@@ -1,6 +1,6 @@
 import type { Pool } from "pg";
 import type { Adapter, AdapterSession, AdapterUser, VerificationToken } from "next-auth/adapters";
-import type { query as queryT } from "@/db/dbConnection";
+import type { DB, query as queryT } from "@/db/dbConnection";
 
 // FIXME: code directly copied from a nearly merged PR on nextAuth repo at https://github.com/nextauthjs/next-auth/pull/4933
 // FIXME: replace this with imported nextAuth function once it releases
@@ -12,7 +12,7 @@ function mapExpiresAt(account: any): any {
     };
 }
 
-export default function PGAdapter(query: any): Adapter {
+export default function PGAdapter(query: DB): Adapter {
     return {
         async createVerificationToken(
             verificationToken: VerificationToken
@@ -31,12 +31,12 @@ export default function PGAdapter(query: any): Adapter {
         }: {
             identifier: string;
             token: string;
-        }): Promise<VerificationToken> {
+        }): Promise<VerificationToken | null> {
             const sql = `delete from verification_token
               where identifier = $1 and token = $2
               RETURNING identifier, expires, token `;
-            const result = await query(sql, [identifier, token]);
-            return result.rowCount !== 0 ? result.rows[0] : null;
+            const result = await query<VerificationToken, string>(sql, [identifier, token]);
+            return result.length !== 0 ? result[0]! : null;
         },
 
         async createUser(user: Omit<AdapterUser, "id">) {
@@ -45,22 +45,22 @@ export default function PGAdapter(query: any): Adapter {
                 INSERT INTO users (name, email, "emailVerified", image) 
                 VALUES ($1, $2, $3, $4) 
                 RETURNING id, name, email, "emailVerified", image`;
-            const result = await query(sql, [name, email, emailVerified, image]);
-            return result.rows[0];
+            const result = await query<AdapterUser, any>(sql, [name, email, emailVerified, image]);
+            return result[0]!;
         },
         async getUser(id) {
             const sql = `select * from users where id = $1`;
             try {
-                const result = await query(sql, [id]);
-                return result.rowCount === 0 ? null : result.rows[0];
+                const result = await query<AdapterUser>(sql, [id]);
+                return result.length === 0 ? null : result[0]!;
             } catch (e) {
                 return null;
             }
         },
         async getUserByEmail(email) {
             const sql = `select * from users where email = $1`;
-            const result = await query(sql, [email]);
-            return result.rowCount !== 0 ? result.rows[0] : null;
+            const result = await query<AdapterUser>(sql, [email]);
+            return result.length !== 0 ? result[0]! : null;
         },
         async getUserByAccount({ providerAccountId, provider }): Promise<AdapterUser | null> {
             const sql = `
@@ -70,13 +70,13 @@ export default function PGAdapter(query: any): Adapter {
                   and 
                   a."providerAccountId" = $2`;
 
-            const result = await query(sql, [provider, providerAccountId]);
-            return result.rowCount !== 0 ? result.rows[0] : null;
+            const result = await query<AdapterUser>(sql, [provider, providerAccountId]);
+            return result.length !== 0 ? result[0]! : null;
         },
         async updateUser(user: Partial<AdapterUser>): Promise<AdapterUser> {
             const fetchSql = `select * from users where id = $1`;
             const query1 = await query(fetchSql, [user.id]);
-            const oldUser = query1.rows[0];
+            const oldUser = query1[0];
 
             const newUser = {
                 ...oldUser,
@@ -90,8 +90,8 @@ export default function PGAdapter(query: any): Adapter {
                 where id = $1
                 RETURNING name, id, email, "emailVerified", image
               `;
-            const query2 = await query(updateSql, [id, name, email, emailVerified, image]);
-            return query2.rows[0];
+            const query2 = await query<AdapterUser>(updateSql, [id, name, email, emailVerified, image]);
+            return query2[0]!;
         },
         async linkAccount(account) {
             const sql = `
@@ -124,7 +124,6 @@ export default function PGAdapter(query: any): Adapter {
                 session_state,
                 token_type
               `;
-            console.log(account);
             const params = [
                 account.userId,
                 account.provider,
@@ -140,7 +139,7 @@ export default function PGAdapter(query: any): Adapter {
             ];
 
             const result = await query(sql, params);
-            return mapExpiresAt(result.rows[0]);
+            return mapExpiresAt(result[0]);
         },
         async createSession({ sessionToken, userId, expires }) {
             if (userId === undefined) {
@@ -150,8 +149,8 @@ export default function PGAdapter(query: any): Adapter {
               values ($1, $2, $3)
               RETURNING id, "sessionToken", "userId", expires`;
 
-            const result = await query(sql, [userId, expires, sessionToken]);
-            return result.rows[0];
+            const result = await query<AdapterSession>(sql, [userId, expires, sessionToken]);
+            return result[0]!;
         },
 
         async getSessionAndUser(sessionToken: string | undefined): Promise<{
@@ -161,21 +160,21 @@ export default function PGAdapter(query: any): Adapter {
             if (sessionToken === undefined) {
                 return null;
             }
-            const result1 = await query(`select * from sessions where "sessionToken" = $1`, [
+            const result1 = await query<AdapterSession>(`select * from sessions where "sessionToken" = $1`, [
                 sessionToken,
             ]);
-            if (result1.rowCount === 0) {
+            if (result1.length === 0) {
                 return null;
             }
-            let session: AdapterSession = result1.rows[0];
+            let session: AdapterSession = result1[0]!;
 
-            const result2 = await query("select * from users where id = $1", [
+            const result2 = await query<AdapterUser>("select * from users where id = $1", [
                 session.userId,
             ]);
-            if (result2.rowCount === 0) {
+            if (result2.length === 0) {
                 return null;
             }
-            const user = result2.rows[0];
+            const user = result2[0]!;
             return {
                 session,
                 user,
@@ -185,13 +184,13 @@ export default function PGAdapter(query: any): Adapter {
             session: Partial<AdapterSession> & Pick<AdapterSession, "sessionToken">
         ): Promise<AdapterSession | null | undefined> {
             const { sessionToken } = session;
-            const result1 = await query(`select * from sessions where "sessionToken" = $1`, [
+            const result1 = await query<AdapterSession>(`select * from sessions where "sessionToken" = $1`, [
                 sessionToken,
             ]);
-            if (result1.rowCount === 0) {
+            if (result1.length === 0) {
                 return null;
             }
-            const originalSession: AdapterSession = result1.rows[0];
+            const originalSession: AdapterSession = result1[0]!;
 
             const newSession: AdapterSession = {
                 ...originalSession,
@@ -202,12 +201,12 @@ export default function PGAdapter(query: any): Adapter {
         "userId" = $2, expires = $3
         where "sessionToken" = $1
         `;
-            const result = await query(sql, [
+            const result = await query<AdapterSession>(sql, [
                 newSession.sessionToken,
                 newSession.userId,
                 newSession.expires,
             ]);
-            return result.rows[0];
+            return result[0];
         },
         async deleteSession(sessionToken) {
             const sql = `delete from sessions where "sessionToken" = $1`;

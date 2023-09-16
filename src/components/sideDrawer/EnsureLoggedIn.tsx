@@ -1,11 +1,12 @@
+import getDbSession from "@/auth/getDbSession";
 import { getServerSession } from "next-auth";
-import { PropsWithChildren, ReactNode } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 
 interface Props extends PropsWithChildren {
     fallback: ReactNode;
 }
 const EnsureLoggedIn: React.FC<Props> = async ({ fallback, children }) => {
-    const session = await getServerSession();
+    const session = await getDbSession();
     const user = session?.user;
 
     if (!user) return <>{fallback}</>;
