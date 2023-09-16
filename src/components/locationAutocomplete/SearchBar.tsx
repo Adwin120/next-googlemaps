@@ -1,7 +1,5 @@
 "use client";
-import usePromise from "@/hooks/usePromise";
-import { search } from "@/utils/mock";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { css } from "../../../styled-system-out/css";
 import { useCombobox } from "downshift";
 import AutocompleteMenuContent from "./AutocompleteMenuContent";

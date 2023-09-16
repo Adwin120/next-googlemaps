@@ -1,9 +1,8 @@
 "use client";
 
-import { PropsWithChildren, ReactNode, createContext, use, useMemo, useRef } from "react";
+import { createContext, useMemo, useRef, type PropsWithChildren, type ReactNode } from "react";
 import { useGoogleMaps } from "./GoogleMapsApiProvider";
 import { css } from "../../../styled-system-out/css";
-import usePermission, { getPermission } from "@/hooks/usePermission";
 import { getLatLng } from "@/hooks/useLatLng";
 import usePromise from "@/hooks/usePromise";
 

@@ -1,5 +1,4 @@
 import getDbSession from "@/auth/getDbSession";
-import { getServerSession } from "next-auth";
 import type { PropsWithChildren, ReactNode } from "react";
 
 interface Props extends PropsWithChildren {

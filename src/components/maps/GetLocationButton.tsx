@@ -1,6 +1,6 @@
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import { css } from "../../../styled-system-out/css";
-import PropsWithPandaStyling from "@/types/PropsWithPandaStyling";
+import type { PropsWithPandaStyling } from "@/types/PropsWithPandaStyling";
 import { square } from "../../../styled-system-out/patterns";
 import { toGoogleMapsLatLng } from "@/hooks/useLatLng";
 

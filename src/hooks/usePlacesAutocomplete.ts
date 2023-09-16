@@ -1,6 +1,5 @@
 import { useGoogleMaps } from "@/components/maps/GoogleMapsApiProvider";
-import { useCallback, useMemo } from "react";
-import usePromise from "./usePromise";
+import { useCallback } from "react";
 import useMemoizedPromise from "./useMemoizedPromise";
 
 type _Statuses = google.maps.places.PlacesServiceStatus;

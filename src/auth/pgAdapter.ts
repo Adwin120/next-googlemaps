@@ -1,4 +1,3 @@
-import type { Pool } from "pg";
 import type { Adapter, AdapterSession, AdapterUser, VerificationToken } from "next-auth/adapters";
 import type { DB, query as queryT } from "@/db/dbConnection";
 

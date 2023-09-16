@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-import usePromise from "./usePromise";
+import { useEffect, useState } from "react";
 import usePermission, { getPermission } from "./usePermission";
 import { promiseGuard } from "@/utils/promiseUtils";
 

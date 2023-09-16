@@ -1,5 +1,5 @@
 import { css } from "../../../styled-system-out/css";
-import { SquareStyles, center, square } from "../../../styled-system-out/patterns";
+import { center, square, type SquareStyles } from "../../../styled-system-out/patterns";
 
 export const LoadingSpinner: React.FC<{ css?: SquareStyles; spinnerWidth?: string }> = ({
     css: cssProp,

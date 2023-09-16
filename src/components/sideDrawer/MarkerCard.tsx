@@ -1,7 +1,5 @@
 import type MarkerData from "@/types/MarkerData";
 import { css } from "../../../styled-system-out/css";
-import Image from "next/image";
-import { bleed } from "../../../styled-system-out/patterns";
 
 interface Props {
     marker: MarkerData

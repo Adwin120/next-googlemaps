@@ -3,10 +3,9 @@
 import useLatLng from "@/hooks/useLatLng";
 import GoogleMap from "./GoogleMap";
 import MapMarker from "./MapMarker";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { BlockLoadingSpinner } from "../utils/LoadingSpinner";
 import GetLocationButton from "./GetLocationButton";
-import { css } from "../../../styled-system-out/css";
 
 interface Props extends PropsWithChildren {}
 const MainMap: React.FC<Props> = ({ children }) => {

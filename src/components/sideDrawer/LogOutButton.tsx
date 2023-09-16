@@ -2,7 +2,6 @@
 import { HiArrowLeftOnRectangle } from "react-icons/hi2";
 import { signOut } from "next-auth/react";
 import { hstack, square } from "../../../styled-system-out/patterns";
-import { css } from "../../../styled-system-out/css";
 
 interface Props {}
 const LogOutButton: React.FC<Props> = () => {

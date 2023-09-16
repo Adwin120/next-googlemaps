@@ -1,8 +1,7 @@
 "use client";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 import { hstack, square } from "../../../styled-system-out/patterns";
-import UserInfo from "./UserInfo";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { useLayout } from "../layoutContexts/TopBarAndDrawerLayoutContext";
 
 const chevronStyle = square({ size: 8, mt: 1, color: "white", cursor: "pointer" });

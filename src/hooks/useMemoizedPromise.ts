@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import usePromise, { PromiseHookReturnTuple } from "./usePromise";
+import usePromise, { type PromiseHookReturnTuple } from "./usePromise";
 
 type ReturnValue<T, E> =
     | PromiseHookReturnTuple<"success", T, null>

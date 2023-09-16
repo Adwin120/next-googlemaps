@@ -1,6 +1,6 @@
 "use client";
-import { UseComboboxReturnValue } from "downshift";
-import { PromiseStatus } from "@/hooks/usePromise";
+import type { UseComboboxReturnValue } from "downshift";
+import type { PromiseStatus } from "@/hooks/usePromise";
 import MenuItem from "./MenuItem";
 import { LoadingSpinner } from "../utils/LoadingSpinner";
 import { menuItemStyle } from "./autocomplete.css";

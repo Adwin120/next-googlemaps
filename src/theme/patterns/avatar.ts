@@ -1,4 +1,4 @@
-import { SystemStyleObject } from "@pandacss/dev";
+import { type SystemStyleObject } from "@pandacss/dev";
 
 export const avatar = {
     properties: {

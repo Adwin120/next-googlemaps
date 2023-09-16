@@ -1,11 +1,9 @@
-import type PropsWithPandaStyling from "@/types/PropsWithPandaStyling";
-import { getUser } from "@/utils/mock";
+import type { PropsWithPandaStyling } from "@/types/PropsWithPandaStyling";
 import { css } from "../../../styled-system-out/css";
-import { avatar, circle, hstack, square } from "../../../styled-system-out/patterns";
+import { avatar, hstack, square } from "../../../styled-system-out/patterns";
 import Image from "next/image";
 import { HiUserCircle } from "react-icons/hi2";
-import { getServerSession, type DefaultSession } from "next-auth";
-import { token } from "../../../styled-system-out/tokens";
+import { type DefaultSession } from "next-auth";
 import getDbSession from "@/auth/getDbSession";
 
 interface Props extends PropsWithPandaStyling {}
@@ -13,7 +11,7 @@ const UserInfo: React.FC<Props> = async ({ css: cssProp }) => {
     const session = await getDbSession();
     const userInfo = session?.user ?? guestInfo;
 
-    const userDisplayName = userInfo?.name?.split(" ")[0]
+    const userDisplayName = userInfo?.name?.split(" ")[0];
     const userImage = userInfo?.image ? (
         <div className={avatar({ size: "10", shadow: "well" })}>
             <Image
