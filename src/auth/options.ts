@@ -4,11 +4,15 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import PGAdapter from "./pgAdapter";
 
-
 const authOptions: AuthOptions = {
     adapter: PGAdapter(query),
     secret: process.env.NEXTAUTH_SECRET,
-
+    callbacks: {
+        async session(params) {
+            params.session.user.id = Number(params.user.id);
+            return params.session;
+        },
+    },
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_OAUTH_ID!,
@@ -20,6 +24,6 @@ const authOptions: AuthOptions = {
         }),
     ],
     // debug: true,
-}
+};
 
-export default authOptions
+export default authOptions;
