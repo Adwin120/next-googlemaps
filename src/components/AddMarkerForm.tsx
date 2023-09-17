@@ -22,7 +22,7 @@ const AddMarkerForm: React.FC<Props> = () => {
             <header>Add marker</header>
             <div className={vstack({ gap: "2", alignItems: "start" })}>
                 <label htmlFor={nameID}>name</label>
-                <input className={inputStyles} id={nameID} />
+                <input className={inputStyles} id={nameID} autoFocus />
 
                 <label htmlFor={descriptionID}>description</label>
                 <input className={inputStyles} id={descriptionID} />

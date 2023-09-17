@@ -13,8 +13,9 @@ import { pointInDOMRect } from "@/utils/pointInDOMRect";
 
 interface Props extends PropsWithChildren {
     open?: boolean;
+    onClose: () => void
 }
-const ModalDialog: React.FC<Props> = ({ open = false, children }) => {
+const ModalDialog: React.FC<Props> = ({ open = false, onClose, children }) => {
     const dialog = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
@@ -30,9 +31,9 @@ const ModalDialog: React.FC<Props> = ({ open = false, children }) => {
         const clickPoint = [e.clientX, e.clientY] as const;
         const backdropClick = !pointInDOMRect(clickPoint, boundingRect);
         if (backdropClick) {
-            e.currentTarget.close();
+            onClose();
         }
-    }, []);
+    }, [onClose]);
 
     return (
         <dialog

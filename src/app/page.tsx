@@ -16,6 +16,9 @@ import { css } from "../../styled-system-out/css";
 import LogOutButton from "@/components/utils/LogOutButton";
 import ModalDialog from "@/components/ModalDialog";
 import AddMarkerForm from "@/components/AddMarkerForm";
+import DrawerHeader from "@/components/sideDrawer/DrawerHeader";
+import DrawerContent from "@/components/DrawerContent";
+import AddMarkerDialog from "@/components/AddMarkerDialog";
 
 export default function Home() {
     return (
@@ -36,23 +39,14 @@ export default function Home() {
             <SideDrawer>
                 <Suspense fallback={<BlockLoadingSpinner />}>
                     <EnsureLoggedIn fallback={<NotLoggedInfo />}>
-                        <div className={vstack({ h: "full" })}>
-                            <h2 className={css({ fontSize: "3xl", w: "full", fontWeight: "medium", color: "white"})}>
-                                Your markers
-                            </h2>
-                            <UserData css={{ flexGrow: 1, w: "full" }} />
-                            <div className={divider({orientation: "horizontal", thickness: "0.5", color: "gray.400"})}/>
-                            <LogOutButton />
-                        </div>
+                        <DrawerContent/>
                     </EnsureLoggedIn>
                 </Suspense>
             </SideDrawer>
 
             <MainMap />
 
-            <ModalDialog open>
-                <AddMarkerForm/>
-            </ModalDialog>
+            <AddMarkerDialog/>
         </GoogleMapsApiProvider>
     );
 }
