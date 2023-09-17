@@ -1,8 +1,25 @@
 import { useId } from "react";
 import { vstack } from "../../styled-system-out/patterns";
 import { css } from "../../styled-system-out/css";
+import insertMarkerSql from "./insertUserMarker.sql";
+import { query } from "@/db/dbConnection";
+import getDbSession from "@/auth/getDbSession";
+import { revalidateTag } from "next/cache";
 
 // TODO: position and photos
+
+async function create(formData: FormData) {
+    "use server";
+
+    // mutate data
+    // revalidate cache
+    console.log(formData);
+    const session = await getDbSession();
+    const userID = session?.user.id;
+    await query(insertMarkerSql, [formData.get("name"), formData.get("description"), 0, 0, userID]);
+    revalidateTag("user-marker");
+    revalidateTag("cache-key")
+}
 
 interface Props {}
 const AddMarkerForm: React.FC<Props> = () => {
@@ -18,14 +35,14 @@ const AddMarkerForm: React.FC<Props> = () => {
     });
 
     return (
-        <form method="dialog" autoComplete="off" className={vstack({ color: "white", gap: "4" })}>
+        <form action={create} autoComplete="off" className={vstack({ color: "white", gap: "4" })}>
             <header>Add marker</header>
             <div className={vstack({ gap: "2", alignItems: "start" })}>
                 <label htmlFor={nameID}>name</label>
-                <input className={inputStyles} id={nameID} autoFocus />
+                <input name="name" className={inputStyles} id={nameID} autoFocus />
 
                 <label htmlFor={descriptionID}>description</label>
-                <input className={inputStyles} id={descriptionID} />
+                <input name="description" className={inputStyles} id={descriptionID} />
             </div>
 
             <button>Add</button>

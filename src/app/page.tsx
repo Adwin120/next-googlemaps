@@ -18,7 +18,7 @@ import ModalDialog from "@/components/ModalDialog";
 import AddMarkerForm from "@/components/AddMarkerForm";
 import DrawerHeader from "@/components/sideDrawer/DrawerHeader";
 import DrawerContent from "@/components/DrawerContent";
-import AddMarkerDialog from "@/components/AddMarkerDialog";
+import MainDialog from "@/components/MainDialog";
 
 export default function Home() {
     return (
@@ -39,14 +39,16 @@ export default function Home() {
             <SideDrawer>
                 <Suspense fallback={<BlockLoadingSpinner />}>
                     <EnsureLoggedIn fallback={<NotLoggedInfo />}>
-                        <DrawerContent/>
+                        <DrawerContent />
                     </EnsureLoggedIn>
                 </Suspense>
             </SideDrawer>
 
             <MainMap />
 
-            <AddMarkerDialog/>
+            <MainDialog>
+                <AddMarkerForm />
+            </MainDialog>
         </GoogleMapsApiProvider>
     );
 }
