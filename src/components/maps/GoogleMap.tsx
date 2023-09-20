@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useMemo, useRef, type PropsWithChildren, type ReactNode } from "react";
+import {
+    createContext,
+    useMemo,
+    useRef,
+    type PropsWithChildren,
+    type ReactNode,
+    type ElementRef,
+    useEffect,
+} from "react";
 import { useGoogleMaps } from "./GoogleMapsApiProvider";
 import { css } from "../../../styled-system-out/css";
 import { getLatLng } from "@/hooks/useLatLng";
@@ -10,13 +18,14 @@ const MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID;
 
 interface Props extends PropsWithChildren {
     fallback?: ReactNode;
+    onReady?: (map: google.maps.Map) => void
 }
-const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
+const GoogleMap: React.FC<Props> = ({ fallback, children, onReady = () => {} }) => {
     const { maps: mapsAPI } = useGoogleMaps();
 
-    const [initialGeolocation, initialGeolocationStatus] = usePromise(getLatLng)
+    const [initialGeolocation, initialGeolocationStatus] = usePromise(getLatLng);
 
-    const mapContainerRef = useRef<HTMLDivElement>(null);
+    const mapContainerRef = useRef<ElementRef<"div">>(null);
     const container = mapContainerRef.current;
 
     const map = useMemo(() => {
@@ -25,7 +34,7 @@ const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
             ? { zoom: 3, center: { lat: 0, lng: 0 } }
             : { zoom: 10, center: initialGeolocation };
 
-        return new mapsAPI!.Map(container, {
+        const mapInstance = new mapsAPI!.Map(container, {
             ...startingPosition,
             scrollwheel: true,
             disableDefaultUI: true,
@@ -44,7 +53,13 @@ const GoogleMap: React.FC<Props> = ({ fallback, children }) => {
                 },
             },
         });
+        return mapInstance;
     }, [mapsAPI, container, initialGeolocationStatus, initialGeolocation]);
+
+    useEffect(() => {
+        if (!map) return;
+        onReady(map)
+    }, [map, onReady])
 
     return (
         <div

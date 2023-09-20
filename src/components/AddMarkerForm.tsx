@@ -5,6 +5,7 @@ import insertMarkerSql from "./insertUserMarker.sql";
 import { query } from "@/db/dbConnection";
 import getDbSession from "@/auth/getDbSession";
 import { revalidateTag } from "next/cache";
+import MarkerFormSubmitButton from "./MarkerFormSubmitButton";
 
 // TODO: position and photos
 
@@ -18,7 +19,7 @@ async function create(formData: FormData) {
     const userID = session?.user.id;
     await query(insertMarkerSql, [formData.get("name"), formData.get("description"), 0, 0, userID]);
     revalidateTag("user-marker");
-    revalidateTag("cache-key")
+    revalidateTag("cache-key");
 }
 
 interface Props {}
@@ -45,7 +46,7 @@ const AddMarkerForm: React.FC<Props> = () => {
                 <input name="description" className={inputStyles} id={descriptionID} />
             </div>
 
-            <button>Add</button>
+            <MarkerFormSubmitButton/>
         </form>
     );
 };

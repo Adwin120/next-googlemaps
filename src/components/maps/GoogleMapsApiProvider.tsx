@@ -15,7 +15,7 @@ const GoogleMapsApiProvider: React.FC<PropsWithChildren> = ({ children }) => {
         return Promise.all([
             loader.importLibrary("maps"),
             loader.importLibrary("marker"),
-            loader.importLibrary("places") //add more as necessary
+            loader.importLibrary("places"), //add more as necessary
         ]);
     }, []);
     const [mapApi, status] = usePromise(loadMapsApi);
@@ -25,7 +25,7 @@ const GoogleMapsApiProvider: React.FC<PropsWithChildren> = ({ children }) => {
                   maps: mapApi[0],
                   marker: mapApi[1],
                   places: mapApi[2],
-                  autocomplete: new mapApi[2].AutocompleteService()
+                  autocomplete: new mapApi[2].AutocompleteService(),
               }
             : defaultContext;
 
@@ -36,20 +36,18 @@ const GoogleMapsApiProvider: React.FC<PropsWithChildren> = ({ children }) => {
     );
 };
 
-
-
 type GoogleMapsApiContext = {
     maps: google.maps.MapsLibrary | null;
     marker: google.maps.MarkerLibrary | null;
     places: google.maps.PlacesLibrary | null;
-    autocomplete: google.maps.places.AutocompleteService | null
-}
+    autocomplete: google.maps.places.AutocompleteService | null;
+};
 
 const defaultContext = {
     maps: null,
     marker: null,
     places: null,
-    autocomplete: null
+    autocomplete: null,
 };
 const GoogleMapsAPIContext = createContext<GoogleMapsApiContext>(defaultContext);
 export const useGoogleMaps = () => useContext(GoogleMapsAPIContext);
