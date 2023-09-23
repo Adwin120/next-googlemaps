@@ -1,6 +1,6 @@
 import { FaUserXmark } from "react-icons/fa6";
 import { square, vstack } from "../../../styled-system-out/patterns";
-import LogInButton from "../utils/LogInButton";
+import LogInButton from "../authentication/LogInButton";
 
 interface Props {}
 const NotLoggedInfo: React.FC<Props> = () => {

@@ -8,6 +8,7 @@ const EnsureLoggedIn: React.FC<Props> = async ({ fallback, children }) => {
     const session = await getDbSession();
     const user = session?.user;
 
+    // next.js server components can't render components from props directly as of writing this code
     if (!user) return <>{fallback}</>;
     return <>{children}</>;
 };

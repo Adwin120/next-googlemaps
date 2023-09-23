@@ -4,7 +4,7 @@ import { css } from "../../../styled-system-out/css";
 import type { PropsWithPandaStyling } from "@/types/PropsWithPandaStyling";
 import { square } from "../../../styled-system-out/patterns";
 import useLatLng, { toGoogleMapsLatLng } from "@/hooks/useLatLng";
-import { useMainMap } from "../layoutContexts/MainMapInstanceProvider";
+import { useMainMap } from "../layout/MainMapInstanceProvider";
 import { useCallback } from "react";
 import usePermission from "@/hooks/usePermission";
 

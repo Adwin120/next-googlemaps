@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import { css } from "../../styled-system-out/css";
-import { center } from "../../styled-system-out/patterns";
+import { css } from "../../../styled-system-out/css";
+import { center } from "../../../styled-system-out/patterns";
 import type { MouseEvent, PropsWithChildren } from "react";
 import { pointInDOMRect } from "@/utils/pointInDOMRect";
 

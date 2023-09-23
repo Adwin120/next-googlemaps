@@ -3,6 +3,6 @@ import authOptions from "./options";
 
 const getDbSession = () => {
     return getServerSession(authOptions);
-}
+};
 
-export default getDbSession
+export default getDbSession;

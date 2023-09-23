@@ -1,6 +1,6 @@
 import { useId } from "react";
-import { vstack } from "../../styled-system-out/patterns";
-import { css } from "../../styled-system-out/css";
+import { vstack } from "../../../styled-system-out/patterns";
+import { css } from "../../../styled-system-out/css";
 import insertMarkerSql from "./insertUserMarker.sql";
 import { query } from "@/db/dbConnection";
 import getDbSession from "@/auth/getDbSession";

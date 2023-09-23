@@ -5,6 +5,7 @@ import { hstack, square } from "../../../styled-system-out/patterns";
 
 interface Props {}
 const LogInButton: React.FC<Props> = () => {
+    // TODO: extract styles
     return (
         <button
             onClick={() => signIn()}

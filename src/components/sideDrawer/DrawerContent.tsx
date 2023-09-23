@@ -1,7 +1,7 @@
-import { divider, vstack } from "../../styled-system-out/patterns";
-import DrawerHeader from "./sideDrawer/DrawerHeader";
-import UserData from "./sideDrawer/UserData";
-import LogOutButton from "./utils/LogOutButton";
+import { divider, vstack } from "../../../styled-system-out/patterns";
+import DrawerHeader from "./DrawerHeader";
+import UserData from "../userContentList/UserData";
+import LogOutButton from "../authentication/LogOutButton";
 
 // TODO: move to some "layout" folder
 interface Props {}

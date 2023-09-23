@@ -1,5 +1,5 @@
 import type { Adapter, AdapterSession, AdapterUser, VerificationToken } from "next-auth/adapters";
-import type { DB, query as queryT } from "@/db/dbConnection";
+import type { DB } from "@/db/dbConnection";
 
 // FIXME: code directly copied from a nearly merged PR on nextAuth repo at https://github.com/nextauthjs/next-auth/pull/4933
 // FIXME: replace this with imported nextAuth function once it releases
@@ -89,7 +89,13 @@ export default function PGAdapter(query: DB): Adapter {
                 where id = $1
                 RETURNING name, id, email, "emailVerified", image
               `;
-            const query2 = await query<AdapterUser>(updateSql, [id, name, email, emailVerified, image]);
+            const query2 = await query<AdapterUser>(updateSql, [
+                id,
+                name,
+                email,
+                emailVerified,
+                image,
+            ]);
             return query2[0]!;
         },
         async linkAccount(account) {
@@ -159,9 +165,10 @@ export default function PGAdapter(query: DB): Adapter {
             if (sessionToken === undefined) {
                 return null;
             }
-            const result1 = await query<AdapterSession>(`select * from sessions where "sessionToken" = $1`, [
-                sessionToken,
-            ]);
+            const result1 = await query<AdapterSession>(
+                `select * from sessions where "sessionToken" = $1`,
+                [sessionToken]
+            );
             if (result1.length === 0) {
                 return null;
             }
@@ -183,9 +190,10 @@ export default function PGAdapter(query: DB): Adapter {
             session: Partial<AdapterSession> & Pick<AdapterSession, "sessionToken">
         ): Promise<AdapterSession | null | undefined> {
             const { sessionToken } = session;
-            const result1 = await query<AdapterSession>(`select * from sessions where "sessionToken" = $1`, [
-                sessionToken,
-            ]);
+            const result1 = await query<AdapterSession>(
+                `select * from sessions where "sessionToken" = $1`,
+                [sessionToken]
+            );
             if (result1.length === 0) {
                 return null;
             }

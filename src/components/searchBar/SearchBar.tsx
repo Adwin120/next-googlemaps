@@ -1,4 +1,7 @@
 "use client";
+
+//TODO: make abstract
+
 import { useRef, useState } from "react";
 import { css } from "../../../styled-system-out/css";
 import { useCombobox } from "downshift";
@@ -14,8 +17,15 @@ import {
 } from "./autocomplete.css";
 import usePlacesAutocomplete from "@/hooks/usePlacesAutocomplete";
 
+interface SearchOption<T> {
+    id: string | number;
+    label: string;
+    data: T
+}
+
 type Query = google.maps.places.QueryAutocompletePrediction;
 
+// TODO: make a class with those as methods
 const queryToString = (query: Query | null): string => query?.description ?? "";
 const queryToId = (query: Query) => query.place_id ?? query.description;
 

@@ -9,7 +9,8 @@ interface Props {
 }
 const MapMarker: React.FC<Props> = ({ position, title }) => {
     const map = useContext(MapContext);
-    const { marker: markerApi } = useGoogleMaps();
+    const mapServices = useGoogleMaps();
+    const markerApi = mapServices?.marker
 
     useEffect(() => {
         if (!map || !markerApi) return;

@@ -18,7 +18,7 @@ const LogOutButton: React.FC<Props> = () => {
                 bg: "gray.900",
                 shadow: "bump",
                 cursor: "pointer",
-                rounded: "lg"
+                rounded: "lg",
             })}
         >
             <HiArrowLeftOnRectangle className={square({ size: 8 })} />

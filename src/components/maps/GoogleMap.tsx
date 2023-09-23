@@ -18,10 +18,11 @@ const MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID;
 
 interface Props extends PropsWithChildren {
     fallback?: ReactNode;
-    onReady?: (map: google.maps.Map) => void
+    onReady?: (map: google.maps.Map) => void;
 }
 const GoogleMap: React.FC<Props> = ({ fallback, children, onReady = () => {} }) => {
-    const { maps: mapsAPI } = useGoogleMaps();
+    const mapServices = useGoogleMaps();
+    const mapsAPI = mapServices?.maps
 
     const [initialGeolocation, initialGeolocationStatus] = usePromise(getLatLng);
 
@@ -58,8 +59,9 @@ const GoogleMap: React.FC<Props> = ({ fallback, children, onReady = () => {} }) 
 
     useEffect(() => {
         if (!map) return;
-        onReady(map)
-    }, [map, onReady])
+        console.log("looks problematic, infinite loop potential");
+        onReady(map);
+    }, [map, onReady]);
 
     return (
         <div
