@@ -2,7 +2,7 @@
 
 //TODO: make abstract
 
-import { useRef, useState } from "react";
+import { useRef, useState, type ElementRef } from "react";
 import { css } from "../../../styled-system-out/css";
 import { useCombobox } from "downshift";
 import AutocompleteMenuContent from "./AutocompleteMenuContent";
@@ -16,38 +16,38 @@ import {
     popupMenuStyle,
 } from "./autocomplete.css";
 import usePlacesAutocomplete from "@/hooks/usePlacesAutocomplete";
+import type { PromiseStatus } from "@/hooks/usePromise";
+import type { Consumer } from "@/types/functions";
 
-interface SearchOption<T> {
+export interface SearchOption<T> {
     id: string | number;
     label: string;
-    data: T
+    data: T;
 }
 
-type Query = google.maps.places.QueryAutocompletePrediction;
-
-// TODO: make a class with those as methods
-const queryToString = (query: Query | null): string => query?.description ?? "";
-const queryToId = (query: Query) => query.place_id ?? query.description;
-
-interface Props {}
-const SearchBar: React.FC<Props> = () => {
-    const [query, setQuery] = useState<Query | null>(null);
-    const [input, setInput] = useState<string>("");
+// TODO: rename T to something
+interface Props<T> {
+    options: SearchOption<T>[];
+    isLoading: boolean;
+    input: string;
+    onInputChange: Consumer<string>;
+    onSearch: Consumer<T>;
+}
+const SearchBar = <T,>({ options, onInputChange, onSearch, isLoading }: Props<T>) => {
     const [suggestionBoxOpen, setSuggestionBoxOpen] = useState<boolean>(false);
 
-    //TODO: debounce this thing
-    const [options, status] = usePlacesAutocomplete(input);
-
-    const combobox = useCombobox({
+    const combobox = useCombobox<SearchOption<T>>({
         items: options ?? [],
         onInputValueChange(changes) {
-            setInput(changes.inputValue ?? "");
+            onInputChange(changes.inputValue ?? "");
             if (changes.inputValue === "") setSuggestionBoxOpen(false);
         },
         onStateChange(changes) {
-            setQuery(changes.selectedItem ?? null);
+            if (changes.selectedItem) {
+                onSearch(changes.selectedItem.data);
+            }
         },
-        itemToString: queryToString,
+        itemToString: (item) => item?.label ?? "",
         isOpen: suggestionBoxOpen,
         onIsOpenChange(changes) {
             if (changes.inputValue !== "" || !changes.isOpen)
@@ -55,7 +55,7 @@ const SearchBar: React.FC<Props> = () => {
         },
     });
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<ElementRef<"input">>(null);
     const focusInput = () => {
         setSuggestionBoxOpen(true);
         inputRef.current?.focus();
@@ -86,12 +86,10 @@ const SearchBar: React.FC<Props> = () => {
                 </button>
             </div>
             <ul {...combobox.getMenuProps()} className={popupMenuStyle}>
-                <AutocompleteMenuContent
+                <AutocompleteMenuContent<T>
                     combobox={combobox}
-                    optionToString={queryToString}
-                    optionToID={queryToId}
-                    options={options ?? []}
-                    status={status}
+                    options={options}
+                    isLoading={isLoading}
                 />
             </ul>
         </search>

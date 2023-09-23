@@ -4,23 +4,16 @@ import type { PromiseStatus } from "@/hooks/usePromise";
 import MenuItem from "./MenuItem";
 import { LoadingSpinner } from "../utils/LoadingSpinner";
 import { menuItemStyle } from "./autocomplete.css";
+import type { SearchOption } from "./SearchBar";
 
 interface Props<T> {
-    combobox: UseComboboxReturnValue<T>;
-    options: T[];
-    optionToString: (option: T) => string;
-    status: PromiseStatus;
-    optionToID: (option: T) => React.Key;
+    combobox: UseComboboxReturnValue<SearchOption<T>>;
+    options: SearchOption<T>[];
+    isLoading: boolean;
 }
-function AutocompleteMenuContent<T>({
-    combobox,
-    options,
-    optionToString,
-    status,
-    optionToID,
-}: Props<T>) {
+function AutocompleteMenuContent<T>({ combobox, options, isLoading }: Props<T>) {
     if (!combobox.isOpen) return null;
-    if (status !== "success" && options.length === 0)
+    if (isLoading && options.length === 0)
         return (
             <li>
                 <LoadingSpinner css={{ size: 8 }} spinnerWidth="16" /> loading
@@ -29,12 +22,11 @@ function AutocompleteMenuContent<T>({
     if (options.length === 0) return <li className={menuItemStyle()}>no options</li>;
 
     return options.map((option, i) => (
-        <MenuItem
+        <MenuItem<T>
             combobox={combobox}
             index={i}
-            key={optionToID(option)}
+            key={option.id}
             option={option}
-            optionToString={optionToString}
         />
     ));
 }
