@@ -6,7 +6,6 @@ import { createContext, useCallback, useContext, type PropsWithChildren } from "
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API!;
 
-//TODO: instead of just returning record with nulls, return status too
 const GoogleMapsApiProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const loadMapsApi = useCallback(() => {
         const loader = new Loader({

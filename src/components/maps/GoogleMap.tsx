@@ -8,6 +8,7 @@ import {
     type ReactNode,
     type ElementRef,
     useEffect,
+    useContext,
 } from "react";
 import { useGoogleMaps } from "./GoogleMapsApiProvider";
 import { css } from "../../../styled-system-out/css";
@@ -22,7 +23,7 @@ interface Props extends PropsWithChildren {
 }
 const GoogleMap: React.FC<Props> = ({ fallback, children, onReady = () => {} }) => {
     const mapServices = useGoogleMaps();
-    const mapsAPI = mapServices?.maps
+    const mapsAPI = mapServices?.maps;
 
     const [initialGeolocation, initialGeolocationStatus] = usePromise(getLatLng);
 
@@ -77,5 +78,5 @@ const GoogleMap: React.FC<Props> = ({ fallback, children, onReady = () => {} }) 
 };
 
 export const MapContext = createContext<google.maps.Map | null>(null);
-
+export const useParentMap = () => useContext(MapContext);
 export default GoogleMap;

@@ -6,7 +6,7 @@ import TopBar from "@/components/topBar/TopBar";
 import UserInfo from "@/components/topBar/UserInfo";
 import SearchBar from "@/components/searchBar/SearchBar";
 import GoogleMapsApiProvider from "@/components/maps/GoogleMapsApiProvider";
-import MainMap from "@/components/layout/MainMap";
+import MainMap from "@/components/layout/mainMap/MainMap";
 import SideDrawerOpener from "@/components/topBar/SideDrawerOpener";
 import SideDrawer from "@/components/sideDrawer/SideDrawer";
 import { BlockLoadingSpinner, LoadingSpinner } from "@/components/utils/LoadingSpinner";

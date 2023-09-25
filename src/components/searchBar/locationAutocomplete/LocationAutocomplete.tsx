@@ -30,7 +30,6 @@ const LocationAutocomplete: React.FC<Props> = () => {
     const isLoading = status === "loading";
 
     const onSearch = useCallback<Consumer<QueryResult>>((query) => {
-        // TODO: get latlng, set it to search params, focus map on the location
         setSearchParams({search: query.place_id ?? ''})
     }, [setSearchParams]);
 
