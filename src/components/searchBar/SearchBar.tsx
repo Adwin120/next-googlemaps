@@ -1,11 +1,13 @@
 "use client";
 
 import { useRef, useState, type ElementRef } from "react";
-import { css } from "../../../styled-system-out/css";
 import { useCombobox } from "downshift";
+
 import AutocompleteMenuContent from "./AutocompleteMenuContent";
-import { visuallyHidden } from "../../../styled-system-out/patterns";
 import { HiMiniMagnifyingGlass, HiMiniChevronUp, HiMiniChevronDown } from "react-icons/hi2";
+
+import { visuallyHidden } from "../../../styled-system-out/patterns";
+import { css } from "../../../styled-system-out/css";
 import {
     chevronIconsStyle,
     inputContainerStyle,

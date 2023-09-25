@@ -1,11 +1,12 @@
 "use client";
-import usePlacesAutocomplete from "@/hooks/usePlacesAutocomplete";
-import type { SearchOption } from "../SearchBar";
 import { useCallback, useState } from "react";
-import SearchBar from "../SearchBar";
-import type { Consumer } from "@/types/functions";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import usePlacesAutocomplete from "@/hooks/usePlacesAutocomplete";
 import useSearchParamsSetter from "@/hooks/useSearchParamsSetter";
+
+import type { SearchOption } from "../SearchBar";
+import SearchBar from "../SearchBar";
+
+import type { Consumer } from "@/types/functions";
 
 type QueryResult = google.maps.places.QueryAutocompletePrediction;
 const createLocationOption = (query: QueryResult): SearchOption<QueryResult> => ({

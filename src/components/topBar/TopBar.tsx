@@ -2,7 +2,7 @@ import { hstack } from "../../../styled-system-out/patterns";
 import type { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {}
-const TopBar: React.FC<Props> = ({children}) => {
+const TopBar: React.FC<Props> = ({ children }) => {
     return (
         <header
             className={hstack({

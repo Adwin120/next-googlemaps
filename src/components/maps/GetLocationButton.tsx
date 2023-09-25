@@ -1,12 +1,13 @@
 "use client";
-import { FaLocationCrosshairs } from "react-icons/fa6";
-import { css } from "../../../styled-system-out/css";
-import type { PropsWithPandaStyling } from "@/types/PropsWithPandaStyling";
-import { square } from "../../../styled-system-out/patterns";
-import useLatLng, { toGoogleMapsLatLng } from "@/hooks/useLatLng";
-import { useMainMap } from "../layout/MainMapInstanceProvider";
 import { useCallback } from "react";
+import { useMainMap } from "../layout/MainMapInstanceProvider";
 import usePermission from "@/hooks/usePermission";
+import useLatLng, { toGoogleMapsLatLng } from "@/hooks/useLatLng";
+
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import type { PropsWithPandaStyling } from "@/types/PropsWithPandaStyling";
+import { css } from "../../../styled-system-out/css";
+import { square } from "../../../styled-system-out/patterns";
 
 interface Props extends PropsWithPandaStyling {}
 const GetLocationButton: React.FC<Props> = ({ css: cssProp }) => {

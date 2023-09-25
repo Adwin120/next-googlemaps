@@ -1,10 +1,11 @@
+import { type DefaultSession } from "next-auth";
+import getDbSession from "@/auth/getDbSession";
+import Image from "next/image";
+
 import type { PropsWithPandaStyling } from "@/types/PropsWithPandaStyling";
 import { css } from "../../../styled-system-out/css";
 import { avatar, hstack, square } from "../../../styled-system-out/patterns";
-import Image from "next/image";
 import { HiUserCircle } from "react-icons/hi2";
-import { type DefaultSession } from "next-auth";
-import getDbSession from "@/auth/getDbSession";
 
 interface Props extends PropsWithPandaStyling {}
 const UserInfo: React.FC<Props> = async ({ css: cssProp }) => {

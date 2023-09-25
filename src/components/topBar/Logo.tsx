@@ -1,8 +1,9 @@
 import Image from "next/image";
+import type { StaticImport } from "next/dist/shared/lib/get-img-props";
+
 import type {PropsWithPandaStyling} from "@/types/PropsWithPandaStyling";
 import { css } from "../../../styled-system-out/css";
 import { visuallyHidden } from "../../../styled-system-out/patterns";
-import type { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 interface Props extends PropsWithPandaStyling {
     src: string | StaticImport

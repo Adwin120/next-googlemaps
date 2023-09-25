@@ -1,7 +1,6 @@
 "use client";
-
-import { useLayout } from "../layout/MainLayoutContext";
 import type { PropsWithChildren } from "react";
+import { useLayout } from "../layout/MainLayoutContext";
 import { css } from "../../../styled-system-out/css";
 import { token } from "../../../styled-system-out/tokens";
 

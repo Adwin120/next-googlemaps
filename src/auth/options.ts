@@ -1,4 +1,4 @@
-import { pool, query } from "@/db/dbConnection";
+import { pool } from "@/db/dbConnection";
 import type { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";

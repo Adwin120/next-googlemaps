@@ -1,16 +1,14 @@
 "use client";
+import { type PropsWithChildren, Suspense } from "react";
 
 import useLatLng from "@/hooks/useLatLng";
+import { useMainMapInitializer } from "../MainMapInstanceProvider";
+
 import GoogleMap from "../../maps/GoogleMap";
 import MapMarker from "../../maps/MapMarker";
-import { useCallback, type PropsWithChildren, Suspense } from "react";
+import SearchMarker from "./SearchMarker";
 import { BlockLoadingSpinner } from "../../utils/LoadingSpinner";
 import GetLocationButton from "../../maps/GetLocationButton";
-import { useMainMap, useMainMapInitializer } from "../MainMapInstanceProvider";
-import { useSearchParams } from "next/navigation";
-import { useGoogleMaps } from "../../maps/GoogleMapsApiProvider";
-import usePromise from "@/hooks/usePromise";
-import SearchMarker from "./SearchMarker";
 
 interface Props extends PropsWithChildren {}
 const MainMap: React.FC<Props> = ({ children }) => {

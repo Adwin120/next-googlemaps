@@ -1,11 +1,8 @@
 import MarkerCard from "./MarkerCard";
 import { vstack } from "../../../styled-system-out/patterns";
 import type { PropsWithPandaStyling } from "@/types/PropsWithPandaStyling";
-import { query } from "@/db/dbConnection";
 
 import getDbSession from "@/auth/getDbSession";
-import type MarkerData from "@/types/MarkerData";
-import { cache } from 'react'
 import { getUserMarkers } from "./getUserMarkers";
 
 interface Props extends PropsWithPandaStyling {}

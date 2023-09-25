@@ -1,8 +1,10 @@
-import { MapContext, useParentMap } from "@/components/maps/GoogleMap";
+import { use, useMemo } from "react";
+
+import { useParentMap } from "@/components/maps/GoogleMap";
 import { useGoogleMaps } from "@/components/maps/GoogleMapsApiProvider";
-import MapMarker from "@/components/maps/MapMarker";
 import { useSearchParams } from "next/navigation";
-import { use, useContext, useMemo } from "react";
+
+import MapMarker from "@/components/maps/MapMarker";
 
 interface Props {}
 const SearchMarker: React.FC<Props> = () => {

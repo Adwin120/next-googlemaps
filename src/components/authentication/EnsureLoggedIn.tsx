@@ -1,5 +1,5 @@
-import getDbSession from "@/auth/getDbSession";
 import type { PropsWithChildren, ReactNode } from "react";
+import getDbSession from "@/auth/getDbSession";
 
 interface Props extends PropsWithChildren {
     fallback: ReactNode;

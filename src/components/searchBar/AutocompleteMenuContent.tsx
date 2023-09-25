@@ -1,6 +1,5 @@
 "use client";
 import type { UseComboboxReturnValue } from "downshift";
-import type { PromiseStatus } from "@/hooks/usePromise";
 import MenuItem from "./MenuItem";
 import { LoadingSpinner } from "../utils/LoadingSpinner";
 import { menuItemStyle } from "./autocomplete.css";
@@ -22,12 +21,7 @@ function AutocompleteMenuContent<T>({ combobox, options, isLoading }: Props<T>) 
     if (options.length === 0) return <li className={menuItemStyle()}>no options</li>;
 
     return options.map((option, i) => (
-        <MenuItem<T>
-            combobox={combobox}
-            index={i}
-            key={option.id}
-            option={option}
-        />
+        <MenuItem<T> combobox={combobox} index={i} key={option.id} option={option} />
     ));
 }
 

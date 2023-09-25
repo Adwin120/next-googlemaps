@@ -4,7 +4,6 @@ import logo from "../../public/logo.svg";
 import Logo from "@/components/topBar/Logo";
 import TopBar from "@/components/topBar/TopBar";
 import UserInfo from "@/components/topBar/UserInfo";
-import SearchBar from "@/components/searchBar/SearchBar";
 import GoogleMapsApiProvider from "@/components/maps/GoogleMapsApiProvider";
 import MainMap from "@/components/layout/mainMap/MainMap";
 import SideDrawerOpener from "@/components/topBar/SideDrawerOpener";

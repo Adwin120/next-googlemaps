@@ -1,7 +1,8 @@
-import { divider, vstack } from "../../../styled-system-out/patterns";
 import DrawerHeader from "./DrawerHeader";
 import UserData from "../userContentList/UserData";
 import LogOutButton from "../authentication/LogOutButton";
+
+import { divider, vstack } from "../../../styled-system-out/patterns";
 
 interface Props {}
 const DrawerContent: React.FC<Props> = () => {
