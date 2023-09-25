@@ -1,11 +1,11 @@
-import { query } from "@/db/dbConnection";
+import { pool, query } from "@/db/dbConnection";
 import type { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import PGAdapter from "./pgAdapter";
+import PGAdapter from "@auth/pg-adapter"
 
 const authOptions: AuthOptions = {
-    adapter: PGAdapter(query),
+    adapter: PGAdapter(pool),
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async session(params) {

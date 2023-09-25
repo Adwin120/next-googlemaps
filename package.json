@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/pg-adapter": "^0.2.0",
     "@googlemaps/js-api-loader": "^1.16.2",
     "@types/node": "20.5.8",
     "@types/react": "18.2.21",
