@@ -13,7 +13,7 @@ const SideDrawerOpener: React.FC<Props> = ({ children }) => {
     return (
         <button
             className={hstack({ gap: "1", cursor: "pointer" })}
-            onClick={() => dispatchLayout({ type: "toggleSideBar" })}
+            onClick={() => dispatchLayout({ type: "toggle", part: "SideBar" })}
             aria-label="toggle side drawer"
             aria-pressed={layout.isSideBarOpen}
         >

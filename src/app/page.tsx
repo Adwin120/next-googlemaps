@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import logo from "../../../public/logo.svg";
+import logo from "../../public/logo.svg";
 
 import Logo from "@/components/topBar/Logo";
 import TopBar from "@/components/topBar/TopBar";
@@ -16,6 +16,7 @@ import AddMarkerForm from "@/components/markerForm/AddMarkerForm";
 import DrawerContent from "@/components/sideDrawer/DrawerContent";
 import MainDialog from "@/components/layout/MainDialog";
 import MainMapInstanceProvider from "@/components/layout/MainMapInstanceProvider";
+import LocationAutocomplete from "@/components/searchBar/locationAutocomplete/LocationAutocomplete";
 
 export default function Home() {
     return (
@@ -23,7 +24,7 @@ export default function Home() {
             <MainMapInstanceProvider>
                 <TopBar>
                     <Logo title="MyPlace" src={logo} />
-                    <SearchBar />
+                    <LocationAutocomplete />
                     <SideDrawerOpener>
                         <Suspense fallback={<LoadingSpinner />}>
                             <UserInfo />
@@ -39,6 +40,7 @@ export default function Home() {
                     </Suspense>
                 </SideDrawer>
 
+                {/* TODO: suspense and use()?  */}
                 <MainMap />
 
                 <MainDialog>

@@ -3,7 +3,6 @@ import DrawerHeader from "./DrawerHeader";
 import UserData from "../userContentList/UserData";
 import LogOutButton from "../authentication/LogOutButton";
 
-// TODO: move to some "layout" folder
 interface Props {}
 const DrawerContent: React.FC<Props> = () => {
     return (

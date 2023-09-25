@@ -1,8 +1,9 @@
 import type { Adapter, AdapterSession, AdapterUser, VerificationToken } from "next-auth/adapters";
 import type { DB } from "@/db/dbConnection";
 
-// FIXME: code directly copied from a nearly merged PR on nextAuth repo at https://github.com/nextauthjs/next-auth/pull/4933
-// FIXME: replace this with imported nextAuth function once it releases
+/* FIXME: code directly copied from a nearly merged PR on nextAuth repo at https://github.com/nextauthjs/next-auth/pull/4933
+replace this with imported nextAuth function once it releases
+*/
 function mapExpiresAt(account: any): any {
     const expires_at: number = parseInt(account.expires_at);
     return {

@@ -1,8 +1,11 @@
-"use client"
+"use client";
 import usePlacesAutocomplete from "@/hooks/usePlacesAutocomplete";
 import type { SearchOption } from "../SearchBar";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import SearchBar from "../SearchBar";
+import type { Consumer } from "@/types/functions";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import useSearchParamsSetter from "@/hooks/useSearchParamsSetter";
 
 type QueryResult = google.maps.places.QueryAutocompletePrediction;
 const createLocationOption = (query: QueryResult): SearchOption<QueryResult> => ({
@@ -20,17 +23,26 @@ const LocationAutocomplete: React.FC<Props> = () => {
     // TODO: debounce this thing
     const [input, setInput] = useState<string>("");
     const [queryResults, status] = usePlacesAutocomplete(input);
+    const setSearchParams = useSearchParamsSetter();
 
-    const options = queryResults?.map(createLocationOption)
-    const isLoading = status === "loading"
-    
-    return <SearchBar 
-        input={input}
-        onInputChange={setInput}
-        isLoading={isLoading}
-        options={options ?? []}
-        onSearch={console.log}
-    />;
+
+    const options = queryResults?.map(createLocationOption);
+    const isLoading = status === "loading";
+
+    const onSearch = useCallback<Consumer<QueryResult>>((query) => {
+        // TODO: get latlng, set it to search params, focus map on the location
+        setSearchParams({search: query.place_id ?? ''})
+    }, [setSearchParams]);
+
+    return (
+        <SearchBar
+            input={input}
+            onInputChange={setInput}
+            isLoading={isLoading}
+            options={options ?? []}
+            onSearch={onSearch}
+        />
+    );
 };
 
 export default LocationAutocomplete;

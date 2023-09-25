@@ -10,7 +10,7 @@ const AddMarkerButton: React.FC<Props> = () => {
     const [_, dispatch] = useLayout();
     return (
         <button
-            onClick={() => dispatch({ type: "openFormModal" })}
+            onClick={() => dispatch({ type: "open", part: "FormModal" })}
             className={css({ p: "1", color: "white", cursor: "pointer" })}
         >
             <FaPlus className={square({ size: "6" })} />

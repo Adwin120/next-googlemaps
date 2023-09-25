@@ -1,7 +1,5 @@
 "use client";
 
-//TODO: make abstract
-
 import { useRef, useState, type ElementRef } from "react";
 import { css } from "../../../styled-system-out/css";
 import { useCombobox } from "downshift";
@@ -15,8 +13,6 @@ import {
     inputStyle,
     popupMenuStyle,
 } from "./autocomplete.css";
-import usePlacesAutocomplete from "@/hooks/usePlacesAutocomplete";
-import type { PromiseStatus } from "@/hooks/usePromise";
 import type { Consumer } from "@/types/functions";
 
 export interface SearchOption<T> {
@@ -25,7 +21,6 @@ export interface SearchOption<T> {
     data: T;
 }
 
-// TODO: rename T to something
 interface Props<T> {
     options: SearchOption<T>[];
     isLoading: boolean;

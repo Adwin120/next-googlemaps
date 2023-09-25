@@ -7,20 +7,24 @@ type Statuses = `${_Statuses}`;
 const fineStatuses: Statuses[] = ["OK", "NOT_FOUND", "ZERO_RESULTS"];
 
 const usePlacesAutocomplete = (input?: string) => {
-    const { autocomplete } = useGoogleMaps();
+    const autocomplete = useGoogleMaps()?.autocomplete;
 
     const promise = useCallback(() => {
-        if (!autocomplete || typeof input !== "string" || input.length === 0) return Promise.resolve([]);
+        if (!autocomplete || typeof input !== "string" || input.length === 0)
+            return Promise.resolve([]);
+
         return new Promise<google.maps.places.QueryAutocompletePrediction[]>((resolve, reject) =>
             //TODO: influence by main map bounds
-            autocomplete.getPlacePredictions({ input, language: navigator.language }, (prediction, status) => {
-                console.log(prediction)
-                if (fineStatuses.includes(status)) {
-                    resolve(prediction!);
-                } else {
-                    reject(status);
+            autocomplete.getPlacePredictions(
+                { input, language: navigator.language },
+                (prediction, status) => {
+                    if (fineStatuses.includes(status)) {
+                        resolve(prediction!);
+                    } else {
+                        reject(status);
+                    }
                 }
-            })
+            )
         );
     }, [autocomplete, input]);
     const predictions = useMemoizedPromise(promise);
