@@ -18,7 +18,11 @@ const MainMap: React.FC<Props> = ({ children }) => {
     return (
         <main>
             <GoogleMap fallback={<BlockLoadingSpinner />} onReady={initializeMainMap}>
-                {clientLatLng && <MapMarker position={clientLatLng} title="your location" />}
+                {clientLatLng && <MapMarker position={clientLatLng} title="your location" pinConfig={{
+                    background: "#0000FF",
+                    glyphColor: "#0000AA",
+                    borderColor: "#0000FF"
+                }} />}
                 <Suspense>
                     <SearchMarker />
                 </Suspense>

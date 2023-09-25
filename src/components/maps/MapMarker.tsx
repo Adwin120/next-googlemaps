@@ -6,8 +6,9 @@ import { useGoogleMaps } from "./GoogleMapsApiProvider";
 interface Props {
     position: google.maps.marker.AdvancedMarkerElement["position"];
     title?: string;
+    pinConfig?: google.maps.marker.PinElementOptions;
 }
-const MapMarker: React.FC<Props> = ({ position, title }) => {
+const MapMarker: React.FC<Props> = ({ position, title, pinConfig }) => {
     const map = useContext(MapContext);
     const mapServices = useGoogleMaps();
     const markerApi = mapServices?.marker;
@@ -18,11 +19,12 @@ const MapMarker: React.FC<Props> = ({ position, title }) => {
             map,
             position,
             title,
+            content: pinConfig ? new markerApi.PinElement(pinConfig).element : null,
         });
         return () => {
             marker.map = null;
         };
-    }, [map, markerApi, position, title]);
+    }, [map, markerApi, pinConfig, position, title]);
 
     return null;
 };
