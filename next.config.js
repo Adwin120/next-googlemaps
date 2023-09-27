@@ -21,6 +21,7 @@ const nextConfig = {
     },
     experimental: {
         serverActions: true,
+        optimizePackageImports: ["react-icons"]
     },
 };
 
