@@ -1,36 +1,50 @@
-import { useGoogleMaps } from "@/components/maps/GoogleMapsApiProvider";
-import { useCallback } from "react";
-import useMemoizedPromise from "./useMemoizedPromise";
+import useSWR from "swr";
+import useGoogleMapsAPI from "./useGoogleMapsAPI";
+import type {
+    AutocompleteSuggestion,
+    AutocompleteService,
+    GooglePlacesStatuses,
+    LatLngBounds,
+    LatLngBoundsObj,
+} from "@/types/googleMapsServices";
 import { useMainMap } from "@/components/layout/MainMapInstanceProvider";
+import { useCallback, useMemo } from "react";
 
-type _Statuses = google.maps.places.PlacesServiceStatus;
-type Statuses = `${_Statuses}`;
-const fineStatuses: Statuses[] = ["OK", "NOT_FOUND", "ZERO_RESULTS"];
-
-const usePlacesAutocomplete = (input?: string) => {
-    const autocomplete = useGoogleMaps()?.autocomplete;
-    const mainMap = useMainMap();
-
-    const promise = useCallback(() => {
-        if (!autocomplete || typeof input !== "string" || input.length === 0)
-            return Promise.resolve([]);
-
-        return new Promise<google.maps.places.QueryAutocompletePrediction[]>((resolve, reject) =>
-            autocomplete.getPlacePredictions(
-                { input, language: navigator.language, locationBias: mainMap?.getBounds() },
-                (prediction, status) => {
-                    if (fineStatuses.includes(status)) {
-                        resolve(prediction!);
-                    } else {
-                        reject(status);
-                    }
-                }
-            )
-        );
-    }, [autocomplete, input, mainMap]);
-    const predictions = useMemoizedPromise(promise);
-
-    return predictions;
+const autocompleteFetcher = (
+    input: string,
+    autocompleteService: AutocompleteService,
+    influence?: LatLngBounds | LatLngBoundsObj
+): Promise<AutocompleteSuggestion[]> => {
+    return autocompleteService
+        .getPlacePredictions({
+            input,
+            language: navigator.language,
+            locationBias: influence,
+        })
+        .then((res) => res.predictions);
 };
 
-export default usePlacesAutocomplete;
+// const spreadedFetcher = (args: Parameters<typeof autocompleteFetcher>) =>
+//     autocompleteFetcher(...args);
+
+const useSearchAutocomplete = (input: string) => {
+    const service = useGoogleMapsAPI("autocomplete");
+    const mainMap = useMainMap();
+    const regionBias = mainMap?.getBounds();
+
+    const fetcher = useCallback(
+        (input: string) => {
+            // will run only with service defined due to (service && input) as SWR key
+            return autocompleteFetcher(input, service!, regionBias);
+        },
+        [service, regionBias]
+    );
+
+    const { data } = useSWR(service && input, fetcher, {
+        keepPreviousData: true,
+    });
+
+    return data ?? null;
+};
+
+export default useSearchAutocomplete;

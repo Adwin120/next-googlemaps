@@ -1,14 +1,14 @@
 import { use, useMemo } from "react";
 
 import { useParentMap } from "@/components/maps/GoogleMap";
-import { useGoogleMaps } from "@/components/maps/GoogleMapsApiProvider";
 import { useSearchParams } from "next/navigation";
 
 import MapMarker from "@/components/maps/MapMarker";
+import useGoogleMapsAPI from "@/hooks/useGoogleMapsAPI";
 
 interface Props {}
 const SearchMarker: React.FC<Props> = () => {
-    const geocoder = useGoogleMaps()?.geocoder;
+    const geocoder = useGoogleMapsAPI("geocoder");
     const params = useSearchParams();
     const map = useParentMap();
     const searchResultPlaceID = params.get("search");

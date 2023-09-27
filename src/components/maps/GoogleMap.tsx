@@ -2,10 +2,11 @@
 
 import { createContext, useMemo, useRef, useEffect, useContext } from "react";
 import type { PropsWithChildren, ReactNode, ElementRef } from "react";
-import { useGoogleMaps } from "./GoogleMapsApiProvider";
 import { css } from "../../../styled-system-out/css";
 import { getLatLng } from "@/hooks/useLatLng";
-import usePromise from "@/hooks/usePromise";
+import useGoogleMapsAPI from "@/hooks/useGoogleMapsAPI";
+import useSWRImmutable from "swr/immutable";
+import { getGeolocation } from "@/hooks/useGeolocation";
 
 const MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID;
 
@@ -14,19 +15,21 @@ interface Props extends PropsWithChildren {
     onReady?: (map: google.maps.Map) => void;
 }
 const GoogleMap: React.FC<Props> = ({ fallback, children, onReady = () => {} }) => {
-    const mapServices = useGoogleMaps();
-    const mapsAPI = mapServices?.maps;
-
-    const [initialGeolocation, initialGeolocationStatus] = usePromise(getLatLng);
+    const mapsAPI = useGoogleMapsAPI("maps");
 
     const mapContainerRef = useRef<ElementRef<"div">>(null);
     const container = mapContainerRef.current;
 
+    const { data: initialLocation, isLoading: isInitialLocationLoading } = useSWRImmutable(
+        "userLocation",
+        getLatLng
+    );
+
     const map = useMemo(() => {
-        if (!mapsAPI || !container || initialGeolocationStatus === "loading") return null;
-        const startingPosition = !initialGeolocation
+        if (!mapsAPI || !container || isInitialLocationLoading) return null;
+        const startingPosition = !initialLocation
             ? { zoom: 3, center: { lat: 0, lng: 0 } }
-            : { zoom: 10, center: initialGeolocation };
+            : { zoom: 10, center: initialLocation };
 
         const mapInstance = new mapsAPI!.Map(container, {
             ...startingPosition,
@@ -48,7 +51,7 @@ const GoogleMap: React.FC<Props> = ({ fallback, children, onReady = () => {} }) 
             },
         });
         return mapInstance;
-    }, [mapsAPI, container, initialGeolocationStatus, initialGeolocation]);
+    }, [container, initialLocation, isInitialLocationLoading, mapsAPI]);
 
     useEffect(() => {
         if (!map) return;

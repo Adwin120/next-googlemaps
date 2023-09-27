@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect } from "react";
 import { MapContext } from "./GoogleMap";
-import { useGoogleMaps } from "./GoogleMapsApiProvider";
+import useGoogleMapsAPI from "@/hooks/useGoogleMapsAPI";
 
 interface Props {
     position: google.maps.marker.AdvancedMarkerElement["position"];
@@ -10,8 +10,7 @@ interface Props {
 }
 const MapMarker: React.FC<Props> = ({ position, title, pinConfig }) => {
     const map = useContext(MapContext);
-    const mapServices = useGoogleMaps();
-    const markerApi = mapServices?.marker;
+    const markerApi = useGoogleMapsAPI("marker");
 
     useEffect(() => {
         if (!map || !markerApi) return;

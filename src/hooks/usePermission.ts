@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-import usePromise from "./usePromise";
+import useSWRImmutable from "swr/immutable";
+
+const permissionFetcher = (name: PermissionName) => {
+    return navigator.permissions.query({ name });
+};
 
 const usePermission = (name: PermissionName) => {
     const [permissionState, setPermissionState] = useState<PermissionState | null>(null);
 
-    const queryPermission = useCallback(() => navigator.permissions.query({ name }), [name]);
-    const [permission] = usePromise(queryPermission);
+    const { data: permission } = useSWRImmutable(name, permissionFetcher);
 
     const permissionChangeListener = useCallback(() => {
         if (!permission) return;

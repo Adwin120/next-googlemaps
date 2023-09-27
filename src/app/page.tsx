@@ -4,7 +4,6 @@ import logo from "../../public/logo.svg";
 import Logo from "@/components/topBar/Logo";
 import TopBar from "@/components/topBar/TopBar";
 import UserInfo from "@/components/topBar/UserInfo";
-import GoogleMapsApiProvider from "@/components/maps/GoogleMapsApiProvider";
 import MainMap from "@/components/layout/mainMap/MainMap";
 import SideDrawerOpener from "@/components/topBar/SideDrawerOpener";
 import SideDrawer from "@/components/sideDrawer/SideDrawer";
@@ -19,33 +18,30 @@ import LocationAutocomplete from "@/components/searchBar/locationAutocomplete/Lo
 
 export default function Home() {
     return (
-        <GoogleMapsApiProvider>
-            <MainMapInstanceProvider>
-                <TopBar>
-                    <Logo title="MyPlace" src={logo} />
-                    <LocationAutocomplete />
-                    <SideDrawerOpener>
-                        <Suspense fallback={<LoadingSpinner />}>
-                            <UserInfo />
-                        </Suspense>
-                    </SideDrawerOpener>
-                </TopBar>
-
-                <SideDrawer>
-                    <Suspense fallback={<BlockLoadingSpinner />}>
-                        <EnsureLoggedIn fallback={<NotLoggedInfo />}>
-                            <DrawerContent />
-                        </EnsureLoggedIn>
+        <MainMapInstanceProvider>
+            <TopBar>
+                <Logo title="MyPlace" src={logo} />
+                <LocationAutocomplete />
+                <SideDrawerOpener>
+                    <Suspense fallback={<LoadingSpinner />}>
+                        <UserInfo />
                     </Suspense>
-                </SideDrawer>
+                </SideDrawerOpener>
+            </TopBar>
 
-                {/* TODO: suspense and use()?  */}
-                <MainMap />
+            <SideDrawer>
+                <Suspense fallback={<BlockLoadingSpinner />}>
+                    <EnsureLoggedIn fallback={<NotLoggedInfo />}>
+                        <DrawerContent />
+                    </EnsureLoggedIn>
+                </Suspense>
+            </SideDrawer>
 
-                <MainDialog>
-                    <AddMarkerForm />
-                </MainDialog>
-            </MainMapInstanceProvider>
-        </GoogleMapsApiProvider>
+            <MainMap />
+
+            <MainDialog>
+                <AddMarkerForm />
+            </MainDialog>
+        </MainMapInstanceProvider>
     );
 }
