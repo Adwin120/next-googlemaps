@@ -30,11 +30,9 @@ export default function Home() {
             </TopBar>
 
             <SideDrawer>
-                <Suspense fallback={<BlockLoadingSpinner />}>
-                    <EnsureLoggedIn fallback={<NotLoggedInfo />}>
-                        <DrawerContent />
-                    </EnsureLoggedIn>
-                </Suspense>
+                <EnsureLoggedIn fallback={<NotLoggedInfo />}>
+                    <DrawerContent />
+                </EnsureLoggedIn>
             </SideDrawer>
 
             <MainMap />
