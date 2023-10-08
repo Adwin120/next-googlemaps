@@ -15,7 +15,7 @@ export const LoadingSpinner: React.FC<{ css?: SquareStyles; spinnerWidth?: strin
                 ...cssProp,
             })}
         >
-            <svg viewBox="0 0 120 120">
+            <svg viewBox="0 0 120 120" className={css({w: "full"})}>
                 <circle
                     cx="60"
                     cy="60"

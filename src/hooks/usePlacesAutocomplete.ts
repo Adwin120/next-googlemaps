@@ -3,12 +3,11 @@ import useGoogleMapsAPI from "./useGoogleMapsAPI";
 import type {
     AutocompleteSuggestion,
     AutocompleteService,
-    GooglePlacesStatuses,
     LatLngBounds,
     LatLngBoundsObj,
 } from "@/types/googleMapsServices";
 import { useMainMap } from "@/components/layout/MainMapInstanceProvider";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 const autocompleteFetcher = (
     input: string,
@@ -23,9 +22,6 @@ const autocompleteFetcher = (
         })
         .then((res) => res.predictions);
 };
-
-// const spreadedFetcher = (args: Parameters<typeof autocompleteFetcher>) =>
-//     autocompleteFetcher(...args);
 
 const useSearchAutocomplete = (input: string) => {
     const service = useGoogleMapsAPI("autocomplete");

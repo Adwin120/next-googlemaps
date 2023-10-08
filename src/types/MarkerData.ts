@@ -3,5 +3,5 @@ export default interface MarkerData {
     name: string;
     description: string;
     latitude: number;
-    longitude: number
+    longitude: number;
 }
